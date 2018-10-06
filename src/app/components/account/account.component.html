@@ -1,0 +1,32 @@
+<div class="animated fadeIn">
+  <div class="col-9 animated slideInRight">
+    <h1>Cuenta</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-3">
+      <div class="list-group ">
+        <a class="btn btn-outline-primary list-group-item list-group-item-action" (click)="selector = 0">
+          <fa-icon [icon]="fa_file"></fa-icon> Resumen de la cuenta
+        </a>
+        <a class="btn btn-outline-primary list-group-item list-group-item-action" (click)="selector = 1">
+          <fa-icon [icon]="fa_edit"></fa-icon> Editar información
+        </a>
+        <a class="btn btn-outline-primary list-group-item list-group-item-action" (click)="selector = 2">
+          <fa-icon [icon]="fa_history"></fa-icon> Historial de pedidos
+        </a>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card" *ngIf="selector == 0">
+        <app-dashboard></app-dashboard>
+      </div>
+      <div class="card" *ngIf="selector == 1">
+        <app-edit></app-edit>
+      </div>
+      <div class="card" *ngIf="selector == 2">
+        <app-orders></app-orders>
+      </div>
+    </div>
+  </div>
+</div>

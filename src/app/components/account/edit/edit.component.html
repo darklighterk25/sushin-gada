@@ -1,0 +1,92 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="card animated fadeIn" *ngIf="!loading">
+  <div class="card-body">
+
+    <h4 class="mb-3">Información básica</h4>
+    <form>
+
+      <div class="row">
+        <div class="col-6 mb-3">
+          <label for="email">Correo electrónico</label>
+          <input type="email" class="form-control" id="email" placeholder="usuario@ejemplo.com">
+          <div class="invalid-feedback">
+            Correo electrónico inválido.
+          </div>
+        </div>
+        <div class="col-6 mb-3">
+          <label for="email">Contraseña actual</label>
+          <input type="password" class="form-control" id="password">
+          <div class="invalid-feedback">
+            Contraseña inválida.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 mb-3">
+          <label for="email">Nueva contraseña</label>
+          <input type="password" class="form-control">
+          <div class="invalid-feedback">
+            Verificar contraseña.
+          </div>
+        </div>
+        <div class="col-6 mb-3">
+          <label for="email">Verificar nueva contraseña</label>
+          <input type="password" class="form-control">
+          <div class="invalid-feedback">
+            Verificar contraseña.
+          </div>
+        </div>
+      </div>
+
+      <hr class="mb-4">
+
+      <h4 class="mb-3">Dirección</h4>
+
+      <div class="row">
+        <div class="col-9 mb-3">
+          <label for="address">Calle</label>
+          <input type="text" class="form-control" id="street" required="">
+          <div class="invalid-feedback">
+            Calle inválida.
+          </div>
+        </div>
+        <div class="col-3 mb-3">
+          <label for="address">Número</label>
+          <input type="text" class="form-control" id="streetNumber" required="">
+          <div class="invalid-feedback">
+            Número inválido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-9 mb-3">
+          <label for="address">Colonia</label>
+          <input type="text" class="form-control" id="address" required="">
+          <div class="invalid-feedback">
+            Calle inválida.
+          </div>
+        </div>
+        <div class="col-3 mb-4">
+          <label for="address">Código Postal</label>
+          <input type="text" class="form-control" id="postal" required="">
+          <div class="invalid-feedback">
+            Número inválido.
+          </div>
+        </div>
+      </div>
+
+      <hr class="mb-4">
+
+      <div class="row">
+        <div class="col-6">
+          <button class="btn btn-outline-primary btn-lg btn-block" type="submit">Actualizar información</button>
+        </div>
+        <div class="col-6">
+          <button class="btn btn-danger btn-lg btn-block" type="submit">Eliminar cuenta</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="animated fadeIn" *ngIf="!loading">
+  <div class="col-9 animated slideInRight">
+    <h1>Carrito</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-5">
+      <h4>Producto</h4>
+    </div>
+    <div class="col-2 text-center">
+      <h4>Precio</h4>
+    </div>
+    <div class="col-2 text-center">
+      <h4>Cantidad</h4>
+    </div>
+    <div class="col-2 text-right">
+      <h4>Subtotal</h4>
+    </div>
+    <div class="col-1 text-center">
+      <!-- Casilla vacía -->
+    </div>
+  </div>
+  <hr>
+  <!-- Contenido -->
+    <app-cart-item class="col-4" [item]="item" *ngFor="let item of cart.items"></app-cart-item>
+  <hr>
+  <!-- Botones -->
+  <div class="row">
+    <div class="col-3">
+      <a [routerLink]="['/menu']" class="btn btn-outline-primary">Continuar comprando</a>
+    </div>
+    <div class="col-5">
+      <!-- Columna vacía -->
+    </div>
+    <div class="col-2 text-right">
+      <h5><strong>Total {{ cart.total | currency:'MXN' }}</strong></h5>
+    </div>
+    <div class="col-2 text-center">
+      <a [routerLink]="['/checkout']" class="btn btn-success btn-outline-success">Pagar</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="animated fadeIn">
+  <div class="col-9 animated slideInRight">
+    <h1>Sucursales</h1>
+  </div>
+  <hr>
+  <app-loading *ngIf="loading"></app-loading>
+  <app-restaurant [location]="location" *ngFor="let location of locations"></app-restaurant>
+</div>

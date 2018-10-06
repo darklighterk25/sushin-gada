@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">
+    <img src="/favicon.ico" width="30" height="30" alt="">Sushin' Gada
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['locations']">Sucursales&nbsp;<fa-icon [icon]="store"></fa-icon></a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" *ngIf="!isEmployee">
+        <a class="nav-link" [routerLink]="['/menu']">Hacer pedido&nbsp;<fa-icon [icon]="utensils"></fa-icon></a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" *ngIf="isEmployee">
+        <a class="nav-link" [routerLink]="['/point-of-sale']">Punto de venta&nbsp;<fa-icon [icon]="money_bill"></fa-icon></a>
+      </li>
+    </ul>
+
+    <!-- Sesión iniciada (Como cliente) -->
+    <ul class="navbar-nav mr-right" *ngIf="isLogged && !isEmployee">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['cart']">Carrito&nbsp;<fa-icon [icon]="shopping_cart"></fa-icon>&nbsp;
+        <span class="badge badge-primary badge-pill animated infinite pulse">{{ cart.items.length }}</span></a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['account']">Cuenta&nbsp;<fa-icon [icon]="user_alt"></fa-icon></a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['home']">Salir&nbsp;<fa-icon [icon]="sign_out_alt"></fa-icon></a>
+      </li>
+    </ul>
+
+    <!-- Inicio de sesión -->
+    <div class="navbar-nav mr-right" *ngIf="!isLogged">
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="email" placeholder="Correo Electrónico" aria-label="email" #email>
+        <input class="form-control mr-sm-2" type="password" placeholder="Contraseña" aria-label="password" #password>
+        <button class="btn btn-light my-2 my-sm-0" type="submit">Acceder</button>
+      </form>
+      <a class="nav-link text-white" [routerLink]="['/sign-up']">Registrarse</a>
+    </div>
+  </div>
+</nav>

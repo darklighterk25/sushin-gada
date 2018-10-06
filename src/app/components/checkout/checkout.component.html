@@ -1,0 +1,164 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="animated fadeIn" *ngIf="!loading">
+  <div class="col-9 animated slideInRight">
+    <h1>Pago</h1>
+  </div>
+  <hr>
+  <div class="py-5">
+    <p class="lead">Por favor llene todos los campos.</p>
+  </div>
+
+  <div class="row">
+    <!-- Carrito -->
+    <div class="col-4 order-md-2 mb-4">
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        Pedido
+        <span class="badge badge-primary badge-pill"> {{ cart.items.length }} </span>
+      </h4>
+      <ul class="list-group mb-3">
+        <li class="list-group-item d-flex justify-content-between lh-condensed animated fadeInUp" *ngFor="let item of cart.items">
+          <div>
+            <h6 class="my-0">{{ item.name }} <b class="badge badge-secondary badge-pill">{{ item.quantity }}</b></h6>
+            <small class="text-muted">{{ item.description }}</small>
+          </div>
+          <span class="text-muted">{{ item.price * item.quantity | currency }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Total</span>
+          <strong>{{ cart.total | currency: "MXN" }}</strong>
+        </li>
+      </ul>
+
+      <form class="card p-2">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Código promocional">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-primary">Validar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Formulario -->
+    <div class="col-8 order-md-1">
+      <h4 class="mb-3">Facturación</h4>
+      <form class="needs-validation" novalidate="">
+        <div class="row">
+          <div class="col-6 mb-3">
+            <label for="firstName">Nombre(s)</label>
+            <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+            <div class="invalid-feedback">
+              Nombre inválido.
+            </div>
+          </div>
+          <div class="col-6 mb-3">
+            <label for="lastName">Apellidos</label>
+            <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+            <div class="invalid-feedback">
+              Apellido inválido.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email">Correo electrónico <span class="text-muted">(Opcional)</span></label>
+          <input type="email" class="form-control" id="email" placeholder="usuario@ejemplo.com">
+          <div class="invalid-feedback">
+            Correo electrónico inválido.
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-9 mb-3">
+            <label for="address">Calle</label>
+            <input type="text" class="form-control" id="street" required="">
+            <div class="invalid-feedback">
+              Calle inválida.
+            </div>
+          </div>
+  
+          <div class="col-3 mb-3">
+            <label for="address">Número</label>
+            <input type="text" class="form-control" id="streetNumber" required="">
+            <div class="invalid-feedback">
+              Número inválido.
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-9 mb-3">
+            <label for="address">Colonia</label>
+            <input type="text" class="form-control" id="address" required="">
+            <div class="invalid-feedback">
+              Calle inválida.
+            </div>
+          </div>
+  
+          <div class="col-3 mb-3">
+            <label for="address">Código Postal</label>
+            <input type="text" class="form-control" id="postal" required="">
+            <div class="invalid-feedback">
+              Número inválido.
+            </div>
+          </div>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="save-info">
+          <label class="custom-control-label" for="save-info">Guardar información para próxima compra.</label>
+        </div>
+        <hr class="mb-4">
+
+
+        <h4 class="mb-3">Formas de pago</h4>
+
+        <div class="d-block my-3">
+          <div class="custom-control custom-radio">
+            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
+            <label class="custom-control-label" for="credit">Tarjeta de crédito</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
+            <label class="custom-control-label" for="debit">Tarjeta de débito</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 mb-3">
+            <label for="cc-name">Titular</label>
+            <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+            <small class="text-muted">Nombre que aparece en la tarjeta</small>
+            <div class="invalid-feedback">
+              Se requiere el nombre
+            </div>
+          </div>
+          <div class="col-6 mb-3">
+            <label for="cc-number">Número de la tarjeta</label>
+            <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+            <div class="invalid-feedback">
+              Se requiere el número de la tarjeta
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3 mb-3">
+            <label for="cc-expiration">Fecha de vencimiento</label>
+            <input type="text" class="form-control" id="cc-expiration" placeholder="mm/aa" required="">
+            <div class="invalid-feedback">
+              Se requiere la fecha de vencimiento
+            </div>
+          </div>
+          <div class="col-3 mb-3">
+            <label for="cc-expiration">Número de seguridad</label>
+            <input type="text" class="form-control" id="cc-cvv" placeholder="---" required="">
+            <div class="invalid-feedback">
+              Se requiere el número de seguridad
+            </div>
+          </div>
+        </div>
+        <hr class="mb-4">
+        <button class="btn btn-outline-primary btn-lg btn-block" type="submit">Pagar</button>
+      </form>
+    </div>
+  </div>
+</div>
