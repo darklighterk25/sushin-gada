@@ -31,22 +31,11 @@ export class NavbarComponent implements OnInit {
       this.cart = cart;
     });
   }
-
   login(email, password) {
     this._accountsService.login(email, password)
       .subscribe( ( response ) => {
-        if (response['loggedIn'] === 'false'){
-          this.isLogged = false;
-        } else {
-          this.isLogged = true;
-        }
-        if (response['employee'] === 'false'){
-          this.isEmployee = false;
-        } else {
-          this.isEmployee = true;
-        }
-        console.log(this.isLogged);
-        console.log(this.isEmployee);
+        this.isLogged = response['loggedIn'] === 'true';
+        this.isEmployee = response['employee'] === 'true';
       });
   }
   logout() {

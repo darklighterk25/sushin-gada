@@ -6,24 +6,12 @@ import { API } from '../../classes/api';
   providedIn: 'root'
 })
 export class AccountsService {
-  // private loggedIn: Boolean = false;
-  // private employee: Boolean = false;
 
   constructor( private _httpClient: HttpClient ) {
   }
   public getAccount() {
     return this._httpClient.get( API.ENDPOINT + '/account' );
   }
-  // public isAuthenticated(): Boolean {
-  //   return this.loggedIn;
-  // }
-  // public isEmployee(): Boolean {
-  //   if ( this.employee ) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
   public login( email: string, password: string ) {
     const headers = new HttpHeaders({
       'email': `${email}`,
