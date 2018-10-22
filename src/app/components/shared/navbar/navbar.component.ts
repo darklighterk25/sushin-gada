@@ -31,11 +31,22 @@ export class NavbarComponent implements OnInit {
       this.cart = cart;
     });
   }
-  login() {
-    this._accountsService.login('padre-de-la-patria@correo.com', '3e6dc62f220c57f4e44e3dd541c175b3a4fd22986bafa16d47ce3d4c2b224ac8')
+
+  login(email, password) {
+    this._accountsService.login(email, password)
       .subscribe( ( response ) => {
-        this.isLogged = response['loggedIn'];
-        this.isEmployee = response['employee'];
+        if (response['loggedIn'] === 'false'){
+          this.isLogged = false;
+        } else {
+          this.isLogged = true;
+        }
+        if (response['employee'] === 'false'){
+          this.isEmployee = false;
+        } else {
+          this.isEmployee = true;
+        }
+        console.log(this.isLogged);
+        console.log(this.isEmployee);
       });
   }
   logout() {
