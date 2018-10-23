@@ -2,11 +2,10 @@ import { Schedule } from './schedule';
 import { Address } from './address';
 
 export interface Location {
-  phone: string;
   address: Address;
   coordinates: {
-    latitude: string
-    longitude: string
+    latitude: string;
+    longitude: string;
   };
   schedule: {
     sunday: Schedule;

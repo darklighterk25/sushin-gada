@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faMoneyBill, faShoppingCart, faStore, faSignOutAlt, faUserAlt, faUtensils } from '@fortawesome/free-solid-svg-icons';
+import { AccountsService } from '../../../services/accounts/accounts.service';
 import { Order } from '../../../interfaces/order';
 import { OrdersService } from '../../../services/orders/orders.service';
 
@@ -8,6 +9,8 @@ import { OrdersService } from '../../../services/orders/orders.service';
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent implements OnInit {
+
+  private id_user: number;
 
   cart: Order;
 
@@ -19,14 +22,27 @@ export class NavbarComponent implements OnInit {
   user_alt = faUserAlt;
   utensils = faUtensils;
 
-  isLogged: Boolean = true;
+  isLogged: Boolean = false;
   isEmployee: Boolean = false;
 
-  constructor( private _ordersService: OrdersService ) {
+  constructor( private _accountsService: AccountsService,
+               private _ordersService: OrdersService ) {
   }
   ngOnInit() {
     this._ordersService.getCart().subscribe( ( cart: Order ) => {
       this.cart = cart;
     });
+  }
+  login(email, password) {
+    this._accountsService.login(email, password)
+      .subscribe( ( response ) => {
+        this.isLogged = response['logged_in'] === 'true';
+        this.isEmployee = response['employee'] === 'true';
+        this.id_user = response['id_user'];
+      });
+  }
+  logout() {
+    this.isLogged = false;
+    this.isEmployee = false;
   }
 }

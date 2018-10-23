@@ -32,6 +32,12 @@ import { TermsComponent } from './components/shared/footer/terms/terms.component
 // Rutas
 import { APP_ROUTING } from './app.routes';
 
+// Services
+import { AccountsService } from './services/accounts/accounts.service';
+import { LocationsService } from './services/locations/locations.service';
+import { MenuService } from './services/menu/menu.service';
+import { OrdersService } from './services/orders/orders.service';
+
 @NgModule({
   declarations: [
     AboutComponent,
@@ -64,7 +70,12 @@ import { APP_ROUTING } from './app.routes';
     FormsModule,
     HttpClientModule
   ],
-  providers: [ ],
+  providers: [
+    AccountsService,
+    LocationsService,
+    MenuService,
+    OrdersService
+  ],
   bootstrap: [
     AppComponent
   ]
