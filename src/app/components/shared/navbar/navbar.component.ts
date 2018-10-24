@@ -10,10 +10,6 @@ import { OrdersService } from '../../../services/orders/orders.service';
 })
 export class NavbarComponent implements OnInit {
 
-  private id_user: number;
-
-  cart: Order;
-
   // Íconos
   money_bill = faMoneyBill;
   shopping_cart = faShoppingCart;
@@ -22,8 +18,11 @@ export class NavbarComponent implements OnInit {
   user_alt = faUserAlt;
   utensils = faUtensils;
 
-  isLogged: Boolean = false;
+  cart: Order;
   isEmployee: Boolean = false;
+  isLogged: Boolean = false;
+  loading: Boolean = false;
+  userID: number;
 
   constructor( private _accountsService: AccountsService,
                private _ordersService: OrdersService ) {
@@ -34,11 +33,13 @@ export class NavbarComponent implements OnInit {
     });
   }
   login(email, password) {
+    this.loading = true;
     this._accountsService.login(email, password)
       .subscribe( ( response ) => {
         this.isLogged = response['logged_in'] === 'true';
         this.isEmployee = response['employee'] === 'true';
-        this.id_user = response['id_user'];
+        this.userID = response['id_user'];
+        this.loading = false;
       });
   }
   logout() {

@@ -1,5 +1,5 @@
 <app-loading *ngIf="loading"></app-loading>
-<div *ngIf="!loading">
+<div class="card animated fadeIn" *ngIf="!loading">
   <div class="card animated fadeIn mt-2 mb-2 ml-2 mr-2" *ngFor="let order of orders">
     <div class="card-body">
       <h4 class="text-center">{{ order.id }} <small class="text-muted"> ({{ order.date | date: "short" }})</small></h4>

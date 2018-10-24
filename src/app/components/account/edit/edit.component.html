@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-6 mb-3">
           <label for="email">Correo electrónico</label>
-          <input type="email" class="form-control" id="email" placeholder="usuario@ejemplo.com">
+          <input type="email" class="form-control" id="email" [placeholder]="account.email">
           <div class="invalid-feedback">
             Correo electrónico inválido.
           </div>
@@ -44,18 +44,25 @@
       <h4 class="mb-3">Dirección</h4>
 
       <div class="row">
-        <div class="col-9 mb-3">
+        <div class="col-8 mb-3">
           <label for="address">Calle</label>
-          <input type="text" class="form-control" id="street" required="">
+          <input type="text" class="form-control" id="street" required="" [placeholder]="account.address.street">
           <div class="invalid-feedback">
             Calle inválida.
           </div>
         </div>
-        <div class="col-3 mb-3">
+        <div class="col-2 mb-3">
           <label for="address">Número</label>
-          <input type="text" class="form-control" id="streetNumber" required="">
+          <input type="text" class="form-control" id="streetNumber" required="" [placeholder]="account.address.number">
           <div class="invalid-feedback">
             Número inválido.
+          </div>
+        </div>
+        <div class="col-2 mb-3">
+          <label for="address">Interior</label>
+          <input type="text" class="form-control" id="interiorNumber" required="" [placeholder]="account.address.interiorNumber">
+          <div class="invalid-feedback">
+            Interior inválido.
           </div>
         </div>
       </div>
@@ -63,14 +70,14 @@
       <div class="row">
         <div class="col-9 mb-3">
           <label for="address">Colonia</label>
-          <input type="text" class="form-control" id="address" required="">
+          <input type="text" class="form-control" id="address" required="" [placeholder]="account.address.neighborhood">
           <div class="invalid-feedback">
-            Calle inválida.
+            Colonia inválida.
           </div>
         </div>
         <div class="col-3 mb-4">
           <label for="address">Código Postal</label>
-          <input type="text" class="form-control" id="postal" required="">
+          <input type="text" class="form-control" id="postal" required=""  [placeholder]="account.address.zipCode">
           <div class="invalid-feedback">
             Número inválido.
           </div>

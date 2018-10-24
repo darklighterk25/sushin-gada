@@ -1,32 +1,24 @@
 <div class="animated fadeIn">
   <div class="col-9 animated slideInRight">
-    <h1>Cuenta</h1>
+    <h1 class="ml-5">Cuenta</h1>
   </div>
   <hr>
   <div class="row">
-    <div class="col-3">
-      <div class="list-group ">
-        <a class="btn btn-outline-primary list-group-item list-group-item-action" (click)="selector = 0">
-          <fa-icon [icon]="fa_file"></fa-icon> Resumen de la cuenta
-        </a>
-        <a class="btn btn-outline-primary list-group-item list-group-item-action" (click)="selector = 1">
-          <fa-icon [icon]="fa_edit"></fa-icon> Editar información
-        </a>
-        <a class="btn btn-outline-primary list-group-item list-group-item-action" (click)="selector = 2">
-          <fa-icon [icon]="fa_history"></fa-icon> Historial de pedidos
-        </a>
+    <div class="col-3 text-center">
+      <div class="btn-group-vertical btn-group-lg" role="group">
+        <button type="button" class="btn btn-secondary" routerLinkActive="active" [routerLink]="['dashboard']">
+          <fa-icon [icon]="fa_file"></fa-icon>&nbsp;Resumen de la cuenta
+        </button>
+        <button type="button" class="btn btn-secondary" routerLinkActive="active" [routerLink]="['edit']">
+          <fa-icon [icon]="fa_edit"></fa-icon>&nbsp;Editar información
+        </button>
+        <button type="button" class="btn btn-secondary" routerLinkActive="active" [routerLink]="['orders']">
+          <fa-icon [icon]="fa_history"></fa-icon>&nbsp;Historial de pedidos
+        </button>
       </div>
     </div>
-    <div class="col-md-9">
-      <div class="card" *ngIf="selector == 0">
-        <app-dashboard></app-dashboard>
-      </div>
-      <div class="card" *ngIf="selector == 1">
-        <app-edit></app-edit>
-      </div>
-      <div class="card" *ngIf="selector == 2">
-        <app-orders></app-orders>
-      </div>
+    <div class="col-8 mr-5">
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

@@ -1,4 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
+import { USER_ROUTES } from './components/account/account.routes';
 import { AboutComponent } from './components/shared/footer/about/about.component';
 import { AccountComponent } from './components/account/account.component';
 import { CartComponent } from './components/cart/cart.component';
@@ -13,7 +14,7 @@ import { TermsComponent } from './components/shared/footer/terms/terms.component
 
 const APP_ROUTES: Routes = [
   { path: 'about', component: AboutComponent },
-  { path: 'account', component: AccountComponent },
+  { path: 'account/:user_id', component: AccountComponent, children: USER_ROUTES },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'home', component: HomeComponent },

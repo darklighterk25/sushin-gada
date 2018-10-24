@@ -1,12 +1,12 @@
 <app-loading *ngIf="loading"></app-loading>
-<div class="fadeIn fast" *ngIf="!loading">
+<div class="fadeIn fast ml-5 mr-5 mb-5" *ngIf="!loading">
   <div class="col-9 animated slideInRight">
-    <h1>Punto de venta</h1>
+    <h1 class="ml-5">Punto de venta</h1>
   </div>
   <hr>
   <div class="row">
     <div class="col-9 card-columns">
-      <app-pos-item class="col-md-4 animated zoomIn" [item]="item" *ngFor="let item of menu"></app-pos-item>
+      <app-pos-item class="col-md-3 animated fadeIn" [item]="item" *ngFor="let item of menu"></app-pos-item>
     </div>
     <div class="col-3">
       <div class="card">

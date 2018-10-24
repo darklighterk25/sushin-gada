@@ -9,36 +9,40 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['locations']">Sucursales&nbsp;<fa-icon [icon]="store"></fa-icon></a>
+        <a class="nav-link animated fadeIn" [routerLink]="['locations']">Sucursales&nbsp;<fa-icon [icon]="store"></fa-icon></a>
       </li>
       <li class="nav-item" routerLinkActive="active" *ngIf="!isEmployee">
-        <a class="nav-link" [routerLink]="['/menu']">Hacer pedido&nbsp;<fa-icon [icon]="utensils"></fa-icon></a>
+        <a class="nav-link animated fadeIn" [routerLink]="['/menu']">Hacer pedido&nbsp;<fa-icon [icon]="utensils"></fa-icon></a>
       </li>
       <li class="nav-item" routerLinkActive="active" *ngIf="isEmployee">
-        <a class="nav-link" [routerLink]="['/point-of-sale']">Punto de venta&nbsp;<fa-icon [icon]="money_bill"></fa-icon></a>
+        <a class="nav-link animated fadeIn" [routerLink]="['/point-of-sale']">Punto de venta&nbsp;<fa-icon [icon]="money_bill"></fa-icon></a>
       </li>
     </ul>
 
     <!-- Sesión iniciada (Como cliente) -->
     <ul class="navbar-nav mr-right" *ngIf="isLogged">
       <li class="nav-item" routerLinkActive="active" *ngIf="!isEmployee">
-        <a class="nav-link" [routerLink]="['cart']">Carrito&nbsp;<fa-icon [icon]="shopping_cart"></fa-icon>&nbsp;
+        <a class="nav-link animated fadeIn" [routerLink]="['cart']">Carrito&nbsp;<fa-icon [icon]="shopping_cart"></fa-icon>&nbsp;
         <span class="badge badge-primary badge-pill animated infinite pulse">{{ cart.items.length }}</span></a>
       </li>
       <li class="nav-item" routerLinkActive="active" *ngIf="!isEmployee">
-        <a class="nav-link" [routerLink]="['account']">Cuenta&nbsp;<fa-icon [icon]="user_alt"></fa-icon></a>
+        <a class="nav-link animated fadeIn" [routerLink]="['account',userID]">Cuenta&nbsp;<fa-icon [icon]="user_alt"></fa-icon></a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/home']" (click)="logout()">Salir&nbsp;<fa-icon [icon]="sign_out_alt"></fa-icon></a>
+        <a class="nav-link animated fadeIn" [routerLink]="['/home']" (click)="logout()">Salir&nbsp;<fa-icon [icon]="sign_out_alt"></fa-icon></a>
       </li>
     </ul>
 
     <!-- Inicio de sesión -->
     <div class="navbar-nav mr-right" *ngIf="!isLogged">
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="email" placeholder="Correo Electrónico" aria-label="email" #email>
-        <input class="form-control mr-sm-2" type="password" placeholder="Contraseña" aria-label="password" #password>
-        <button class="btn btn-light my-2 my-sm-0" type="submit" (click)="login(email.value, password.value)">Acceder</button>
+        <input class="form-control mr-sm-2 animated fadeIn" type="email" placeholder="Correo Electrónico" aria-label="email" #email>
+        <input class="form-control mr-sm-2 animated fadeIn" type="password" placeholder="Contraseña" aria-label="password" #password>
+        <button class="btn my-2 my-sm-0 animated fadeIn" [ngClass]="{ 'btn-light': !loading, 'btn-basic': loading }"
+                [disabled]="loading" type="submit" (click)="login(email.value, password.value)">
+          <div *ngIf="!loading">Acceder</div>
+          <div *ngIf="loading" class="animated infinite pulse">Verificando</div>
+        </button>
       </form>
       <a class="nav-link text-white" [routerLink]="['/sign-up']">Registrarse</a>
     </div>
