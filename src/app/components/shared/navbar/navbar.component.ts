@@ -32,9 +32,9 @@ export class NavbarComponent implements OnInit {
       this.cart = cart;
     });
   }
-  login(email, password) {
+  login( email, password ) {
     this.loading = true;
-    this._accountsService.login(email, password)
+    this._accountsService.login( { email: email, password: password } )
       .subscribe( ( response ) => {
         this.isLogged = response['logged_in'] === 'true';
         this.isEmployee = response['employee'] === 'true';
