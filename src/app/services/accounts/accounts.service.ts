@@ -10,13 +10,17 @@ export class AccountsService {
   constructor( private _httpClient: HttpClient ) {
   }
   public getAccount() {
-    return this._httpClient.get( API.ENDPOINT + '/account' );
+    return this._httpClient.get( API.ENDPOINT + '/account', {withCredentials: true} );
   }
   public login( email: string, password: string ) {
-    const headers = new HttpHeaders({
+    const loginHeaders = new HttpHeaders({
       'email': `${email}`,
       'password': `${password}`
     });
-    return this._httpClient.post( API.ENDPOINT + '/account/login', null, { headers } );
+    const httpOptions = {
+      headers: loginHeaders,
+      withCredentials: true
+    };
+    return this._httpClient.post( API.ENDPOINT + '/account/login', null, httpOptions);
   }
 }
