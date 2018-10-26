@@ -3,6 +3,7 @@ import { faMoneyBill, faShoppingCart, faStore, faSignOutAlt, faUserAlt, faUtensi
 import { AccountsService } from '../../../services/accounts/accounts.service';
 import { Order } from '../../../interfaces/order';
 import { OrdersService } from '../../../services/orders/orders.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-navbar',
@@ -27,11 +28,19 @@ export class NavbarComponent implements OnInit {
   constructor( private _accountsService: AccountsService,
                private _ordersService: OrdersService ) {
   }
+
   ngOnInit() {
     this._ordersService.getCart().subscribe( ( cart: Order ) => {
       this.cart = cart;
     });
+    this._accountsService.logged().subscribe( ( response ) => {
+      this.isLogged = response['logged_in'] === 'true';
+      this.isEmployee = response['employee'] === 'true';
+      this.userID = response['id_user'];
+      this.loading = false;
+    });
   }
+
   login( email, password ) {
     this.loading = true;
     this._accountsService.login( { email: email, password: password } )
@@ -42,8 +51,13 @@ export class NavbarComponent implements OnInit {
         this.loading = false;
       });
   }
+
   logout() {
-    this.isLogged = false;
-    this.isEmployee = false;
+    this._accountsService.logout().subscribe( ( response ) => {
+      this.isLogged = response['logged_in'] === 'true';
+      this.isEmployee = response['employee'] === 'true';
+      this.userID = response['id_user'];
+    });
   }
+
 }
