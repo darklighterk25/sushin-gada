@@ -1,9 +1,12 @@
 // Módulos
+import { AgmCoreModule } from '@agm/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { AngularMaterialModule } from './angular-material.module';
 
 // Componentes
 import { AboutComponent } from './components/shared/footer/about/about.component';
@@ -24,10 +27,12 @@ import { OrdersComponent } from './components/account/orders/orders.component';
 import { PointOfSaleComponent } from './components/point-of-sale/point-of-sale.component';
 import { PointOfSaleItemComponent } from './components/point-of-sale/pos-item/pos-item.component';
 import { PrivacyComponent } from './components/shared/footer/privacy/privacy.component';
-import { LocationComponent } from './components/locations/location/location.component';
 import { LocationsComponent } from './components/locations/locations.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { TermsComponent } from './components/shared/footer/terms/terms.component';
+
+// Pipes
+import { PhonePipe } from "./pipes/phone.pipe";
 
 // Rutas
 import { APP_ROUTING } from './app.routes';
@@ -58,17 +63,22 @@ import { OrdersService } from './services/orders/orders.service';
     PointOfSaleComponent,
     PointOfSaleItemComponent,
     PrivacyComponent,
-    LocationComponent,
     LocationsComponent,
     SignUpComponent,
-    TermsComponent
+    TermsComponent,
+    PhonePipe
   ],
   imports: [
+    AngularMaterialModule,
     APP_ROUTING,
+    BrowserAnimationsModule,
     BrowserModule,
     FontAwesomeModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAqnxwnZEkGUbXW50Xi4SM92UpItT_7zXE'
+    })
   ],
   providers: [
     AccountsService,

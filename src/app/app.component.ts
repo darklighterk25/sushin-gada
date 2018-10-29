@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   template: `
     <app-navbar></app-navbar>
-      <router-outlet class="ml-5 mr-5"></router-outlet>
+      <router-outlet class="my-5"></router-outlet>
     <app-footer></app-footer>`
   })
 export class AppComponent {

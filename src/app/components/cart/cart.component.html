@@ -1,6 +1,6 @@
 <app-loading *ngIf="loading"></app-loading>
-<div class="animated fadeIn ml-5 mr-5" *ngIf="!loading">
-  <div class="animated slideInRight">
+<div class="container-fluid animated fadeIn my-5" *ngIf="!loading">
+  <div class="row animated slideInRight">
     <h1 class="ml-5">Carrito</h1>
   </div>
   <hr>
@@ -21,11 +21,11 @@
       <!-- Casilla vacía -->
     </div>
   </div>
-  <hr>
-  <!-- Contenido -->
+    <hr>
+    <!-- Contenido -->
     <app-cart-item class="col-4" [item]="item" *ngFor="let item of cart.items"></app-cart-item>
-  <hr>
-  <!-- Botones -->
+    <hr>
+    <!-- Botones -->
   <div class="row">
     <div class="col-3">
       <a [routerLink]="['/menu']" class="btn btn-outline-primary">Continuar comprando</a>

@@ -1,10 +1,10 @@
-<div class="animated fadeIn">
-  <div class="animated slideInRight">
+<div class="container-fluid animated fadeIn my-5">
+  <div class="row animated slideInRight">
     <h1 class="ml-5">Menú</h1>
   </div>
   <hr>
   <app-loading *ngIf="loading"></app-loading>
-  <div class="row card-columns ml-5 mr-5 mb-5">
+  <div class="row card-columns m-5">
     <app-menu-item class="col-3 animated zoomIn" [item]="item" *ngFor="let item of menu"></app-menu-item>
   </div>
 </div>
