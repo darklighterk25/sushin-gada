@@ -20,3 +20,9 @@ input[type=number] {
 .img-logo {
   width: 120px;
 }
+
+.mat-progress-spinner {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 250px;
+}

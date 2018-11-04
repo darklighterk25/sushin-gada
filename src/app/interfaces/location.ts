@@ -8,13 +8,5 @@ export interface Location {
     latitude: string;
     longitude: string;
   };
-  schedule: {
-    sunday: Schedule;
-    monday: Schedule;
-    tuesday: Schedule;
-    wednesday: Schedule;
-    thursday: Schedule;
-    friday: Schedule;
-    saturday: Schedule;
-  };
+  schedule: Schedule[];
 }

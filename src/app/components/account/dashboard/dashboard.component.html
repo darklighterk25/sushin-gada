@@ -1,4 +1,4 @@
-<app-loading *ngIf="account_loading && orders_loading"></app-loading>
+<mat-progress-spinner *ngIf="account_loading && orders_loading" mode="indeterminate"></mat-progress-spinner>
 <div class="card animated fadeIn" *ngIf="!account_loading && !orders_loading">
   <div class="card-body">
     <div class="row">

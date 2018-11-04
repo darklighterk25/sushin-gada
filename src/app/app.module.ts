@@ -19,7 +19,6 @@ import { DashboardComponent } from './components/account/dashboard/dashboard.com
 import { EditComponent } from './components/account/edit/edit.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
-import { LoadingComponent } from './components/shared/loading/loading.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { MenuItemComponent } from './components/menu/menu-item/menu-item.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
@@ -55,7 +54,6 @@ import { OrdersService } from './services/orders/orders.service';
     EditComponent,
     FooterComponent,
     HomeComponent,
-    LoadingComponent,
     MenuComponent,
     MenuItemComponent,
     NavbarComponent,

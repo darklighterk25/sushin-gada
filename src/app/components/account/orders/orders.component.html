@@ -1,4 +1,4 @@
-<app-loading *ngIf="loading"></app-loading>
+<mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
 <div class="card animated fadeIn" *ngIf="!loading">
   <div class="card animated fadeIn mt-2 mb-2 ml-2 mr-2" *ngFor="let order of orders">
     <div class="card-body">
