@@ -60,6 +60,16 @@ export class NavbarComponent implements OnInit {
 
   login( email, password ) {
     this.loading = true;
+    // Si el componente sigue cargando después de cinco segundos.
+    setTimeout(
+      () => {
+        if (this.loading == true) {
+          this.loading = false;
+          this.alert( 'No se ha podido realizar la conexión' );
+        }
+      },
+      5000
+    );
     this._accountsService.login( { email: email, password: password } )
       .subscribe(
         response => {
@@ -69,18 +79,20 @@ export class NavbarComponent implements OnInit {
           this.loading = false;
         },
         error => {
-          this.alert( '¡Usuario inválido!' );
+          this.alert( 'Usuario o contraseña inválido' );
           this.loading = false;
         }
       );
   }
 
   logout() {
-    this._accountsService.logout().subscribe( response => {
-      this.isLogged = response['logged_in'] === 'true';
-      this.isEmployee = response['employee'] === 'true';
-      this.userID = response['id_user'];
-    });
+    this._accountsService.logout().subscribe(
+      response => {
+        this.isLogged = response['logged_in'] === 'true';
+        this.isEmployee = response['employee'] === 'true';
+        this.userID = response['id_user'];
+      }
+    );
   }
 
 }
