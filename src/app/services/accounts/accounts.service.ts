@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Account } from '../../interfaces/account';
 import { API } from '../../classes/api';
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,8 @@ export class AccountsService {
   }
   public logged(): Observable<Object> {
     return this._httpClient.get( API.ENDPOINT + '/account/logged', API.GET_OPTIONS)
+  }
+  public signup( body: Account ): Observable<Object> {
+    return this._httpClient.put( API.ENDPOINT + '/account/signup', body, API.POST_OPTIONS );
   }
 }

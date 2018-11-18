@@ -11,8 +11,8 @@ export class MenuComponent implements OnInit {
   loading: Boolean = true;
   menu: Item[] = [];
 
-  constructor( private _menuService: MenuService ) {
-  }
+  constructor( private _menuService: MenuService ) { }
+
   ngOnInit() {
     this._menuService.getMenu()
       .subscribe( ( menu: Item[] ) => {
@@ -20,4 +20,5 @@ export class MenuComponent implements OnInit {
         this.loading = false;
       });
   }
+
 }

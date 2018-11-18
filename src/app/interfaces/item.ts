@@ -1,4 +1,5 @@
 export interface Item {
+  idItem: number;
   name: string;
   type: string;
   description: string;

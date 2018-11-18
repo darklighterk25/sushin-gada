@@ -1,43 +1,47 @@
 <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
 <div class="container-fluid animated fadeIn my-5" *ngIf="!loading">
-  <div class="row animated slideInRight">
-    <h1 class="ml-5">Carrito</h1>
-  </div>
-  <hr>
-  <div class="row">
-    <div class="col-5">
-      <h4>Producto</h4>
+    <div class="row animated slideInRight">
+        <h1 class="ml-5">Carrito</h1>
     </div>
-    <div class="col-2 text-center">
-      <h4>Precio</h4>
-    </div>
-    <div class="col-2 text-center">
-      <h4>Cantidad</h4>
-    </div>
-    <div class="col-2 text-right">
-      <h4>Subtotal</h4>
-    </div>
-    <div class="col-1 text-center">
-      <!-- Casilla vacía -->
-    </div>
-  </div>
     <hr>
-    <!-- Contenido -->
-    <app-cart-item class="col-4" [item]="item" *ngFor="let item of cart.items"></app-cart-item>
+    <div class="row">
+        <div class="col-5">
+            <h4>Producto</h4>
+        </div>
+        <div class="col-2 text-center">
+            <h4>Precio</h4>
+        </div>
+        <div class="col-2 text-center">
+            <h4>Cantidad</h4>
+        </div>
+        <div class="col-2 text-right">
+            <h4>Subtotal</h4>
+        </div>
+        <div class="col-1 text-center">
+            <!-- Casilla vacía -->
+        </div>
+    </div>
     <hr>
-    <!-- Botones -->
-  <div class="row">
-    <div class="col-3">
-      <a [routerLink]="['/menu']" class="btn btn-outline-primary">Continuar comprando</a>
+
+    <div *ngIf="cart != null">
+        <!-- Contenido -->
+        <app-cart-item class="col-4" [item]="item" *ngFor="let item of cart.items"></app-cart-item>
+        <hr>
+
+        <!-- Botones -->
+        <div class="row">
+            <div class="col-3">
+                <a [routerLink]="['/menu']" class="btn btn-outline-primary">Continuar comprando</a>
+            </div>
+            <div class="col-5">
+                <!-- Columna vacía -->
+            </div>
+            <div class="col-2 text-right">
+                <h5><strong>Total {{ cart.total | currency:'MXN' }}</strong></h5>
+            </div>
+            <div class="col-2 text-center">
+                <a [routerLink]="['/checkout']" class="btn btn-success btn-outline-success">Pagar</a>
+            </div>
+        </div>
     </div>
-    <div class="col-5">
-      <!-- Columna vacía -->
-    </div>
-    <div class="col-2 text-right">
-      <h5><strong>Total {{ cart.total | currency:'MXN' }}</strong></h5>
-    </div>
-    <div class="col-2 text-center">
-      <a [routerLink]="['/checkout']" class="btn btn-success btn-outline-success">Pagar</a>
-    </div>
-  </div>
 </div>

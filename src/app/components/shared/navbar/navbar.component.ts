@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { faMoneyBill, faShoppingCart, faStore, faSignOutAlt, faUserAlt, faUtensils } from '@fortawesome/free-solid-svg-icons';
 import { AccountsService } from '../../../services/accounts/accounts.service';
 import { MatSnackBar } from '@angular/material';
-import { MatSnackBarHorizontalPosition } from "@angular/material/snack-bar";
-import { MatSnackBarVerticalPosition } from "@angular/material/snack-bar";
+import { MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
+import { MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Order } from '../../../interfaces/order';
 import { OrdersService } from '../../../services/orders/orders.service';
 
@@ -29,6 +29,7 @@ export class NavbarComponent implements OnInit {
   isEmployee: Boolean = false;
   isLogged: Boolean = false;
   loading: Boolean = false;
+  cartLoaded: Boolean = false;
   userID: number;
 
   constructor( private _accountsService: AccountsService,
@@ -37,17 +38,18 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._ordersService.getCart().subscribe( ( cart: Order ) => {
-      this.cart = cart;
-    });
-    this._accountsService.logged().subscribe(
-      response => {
-        this.isLogged = response['logged_in'] === 'true';
-        this.isEmployee = response['employee'] === 'true';
-        this.userID = response['id_user'];
-        this.loading = false;
+    this._accountsService.logged().subscribe( ( response ) => {
+      this.isLogged = response['logged_in'] === 'true';
+      this.isEmployee = response['employee'] === 'true';
+      this.userID = response['id_user'];
+      this.loading = false;
+      if ( this.isLogged ) {
+        this._ordersService.getCart().subscribe( ( cart: Order ) => {
+          this.cart = cart;
+          this.cartLoaded = true;
+        });
       }
-    );
+    });
   }
 
   alert( message: string ) {
@@ -63,7 +65,7 @@ export class NavbarComponent implements OnInit {
     // Si el componente sigue cargando después de cinco segundos.
     setTimeout(
       () => {
-        if (this.loading == true) {
+        if (this.loading === true) {
           this.loading = false;
           this.alert( 'No se ha podido realizar la conexión' );
         }
@@ -77,6 +79,12 @@ export class NavbarComponent implements OnInit {
           this.isEmployee = response['employee'] === 'true';
           this.userID = response['id_user'];
           this.loading = false;
+          if ( this.isLogged ) {
+            this._ordersService.getCart().subscribe( ( cart: Order ) => {
+              this.cart = cart;
+              this.cartLoaded = true;
+            });
+          }
         },
         error => {
           this.alert( 'Usuario o contraseña inválido' );
@@ -91,8 +99,8 @@ export class NavbarComponent implements OnInit {
         this.isLogged = response['logged_in'] === 'true';
         this.isEmployee = response['employee'] === 'true';
         this.userID = response['id_user'];
-      }
-    );
+        this.loading = false;
+      });
   }
 
 }
