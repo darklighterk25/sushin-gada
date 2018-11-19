@@ -3,7 +3,7 @@ import { AgmCoreModule } from '@agm/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AngularMaterialModule } from './angular-material.module';
@@ -31,7 +31,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { TermsComponent } from './components/shared/footer/terms/terms.component';
 
 // Pipes
-import { PhonePipe } from "./pipes/phone.pipe";
+import { PhonePipe } from './pipes/phone.pipe';
 
 // Rutas
 import { APP_ROUTING } from './app.routes';
@@ -74,6 +74,7 @@ import { OrdersService } from './services/orders/orders.service';
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAqnxwnZEkGUbXW50Xi4SM92UpItT_7zXE'
     })

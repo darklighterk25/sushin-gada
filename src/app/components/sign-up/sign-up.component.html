@@ -9,122 +9,248 @@
     </div>
     <div class="col-8 order-md-2">
       <h4 class="mb-3">Información básica</h4>
-      <form class="needs-validation" novalidate="">
+
+      <form [formGroup]="form" (ngSubmit)="signUp()">
+
         <div class="row">
-          <div class="col-12 mb-3">
-            <label for="firstName">Nombre(s)</label>
-            <input type="text" class="form-control" id="firstName">
-            <div class="invalid-feedback">
-              Nombre inválido.
+          <div class="form-group col-12 mb-3">
+            <label class="col-form-label">Nombre(s)</label>
+            <input type="text" class="form-control" maxlength="45" formControlName="name">
+            <div *ngIf="form.controls['name'].errors?.required
+                        &&( form.controls['name'].dirty || form.controls['name'].touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
+            </div>
+            <div *ngIf="form.controls['name'].errors?.pattern
+                        &&( form.controls['name'].dirty || form.controls['name'].touched)"
+                 class="invalid-feedback d-block">
+              El nombre es inválido.
             </div>
           </div>
         </div>
+
         <div class="row">
-          <div class="col-6 mb-3">
-            <label for="lastName1">Primer Apellido</label>
-            <input type="text" class="form-control" id="lastName1">
-            <div class="invalid-feedback">
-              Apellido inválido.
+          <div class="form-group col-6 mb-3">
+            <label class="col-form-label">Primer Apellido</label>
+            <input type="text" class="form-control" maxlength="45" formControlName="lastName1">
+            <div *ngIf="form.controls['lastName1'].errors?.required
+                        &&( form.controls['lastName1'].dirty || form.controls['lastName1'].touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
+            </div>
+            <div *ngIf="form.controls['lastName1'].errors?.pattern
+                        &&( form.controls['lastName1'].dirty || form.controls['lastName1'].touched )"
+                 class="invalid-feedback d-block">
+              El primer apellido es inválido.
             </div>
           </div>
-          <div class="col-6 mb-3">
-            <label for="lastName2">Segundo Apellido</label>
-            <input type="text" class="form-control" id="lastName2">
-            <div class="invalid-feedback">
-              Apellido inválido.
+          <div class="form-group col-6 mb-3">
+            <label class="col-form-label">Segundo Apellido</label>
+            <input type="text" class="form-control" maxlength="45" formControlName="lastName2">
+            <div *ngIf="form.controls['lastName2'].errors?.pattern
+                        &&( form.controls['lastName2'].dirty || form.controls['lastName2'].touched )"
+                 class="invalid-feedback d-block">
+              El segundo apellido es inválido.
             </div>
           </div>
         </div>
+
         <div class="row">
-          <div class="col-6 mb-3">
-            <label for="birthDate">Fecha de Nacimiento</label>
-            <input type="date" class="form-control" id="birthDate">
-            <div class="invalid-feedback">
-              Nombre inválido.
+          <div class="form-group col-6 mb-3">
+            <label class="col-form-label">Fecha de Nacimiento</label>
+            <input type="date" class="form-control" formControlName="birthDate">
+            <div *ngIf="form.controls['birthDate'].errors?.required
+                        &&( form.controls['birthDate'].dirty || form.controls['birthDate'].touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
             </div>
           </div>
-          <div class="col-6 mb-3">
-            <label for="gender">Género</label>
-            <select class="form-control form-control-md" id="gender">
-              <option>Masculino</option>
-              <option>Femenino</option>
+          <div class="form-group col-6 mb-3">
+            <label class="col-form-label">Género</label>
+            <select class="form-control" formControlName="gender">
+              <option value="0">Masculino</option>
+              <option value="1">Femenino</option>
             </select>
-            <div class="invalid-feedback">
-              Apellido inválido.
+            <div *ngIf="form.controls['gender'].errors?.required
+                        &&( form.controls['gender'].dirty || form.controls['gender'].touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
             </div>
           </div>
         </div>
+
         <div class="row">
-          <div class="col-6 mb-3">
-            <label for="email">Correo electrónico</label>
-            <input type="email" class="form-control" id="email" placeholder="usuario@ejemplo.com">
-            <div class="invalid-feedback">
-              Correo electrónico inválido.
+          <div class="form-group col-6 mb-3">
+            <label class="col-form-label">Correo electrónico</label>
+            <input type="email" class="form-control" maxlength="45" formControlName="email">
+            <div *ngIf="form.controls['email'].errors?.required
+                        &&( form.controls['email'].dirty || form.controls['email'].touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
+            </div>
+            <div *ngIf="form.controls['email'].errors?.pattern
+                        &&( form.controls['email'].dirty || form.controls['email'].touched )"
+                 class="invalid-feedback d-block">
+              El correo es inválido.
             </div>
           </div>
-          <div class="col-6 mb-3">
-            <label for="password">Contraseña</label>
-            <input type="password" class="form-control" id="password">
-            <div class="invalid-feedback">
-              Contraseña inválida.
+          <div class="form-group col-6 mb-3">
+            <label class="col-form-label">Contraseña</label>
+            <input type="password" class="form-control" maxlength="20" formControlName="password">
+            <div *ngIf="form.controls['password'].errors?.required
+                        &&( form.controls['password'].dirty || form.controls['password'].touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
+            </div>
+            <!--<div *ngIf="form.controls['password'].errors?.pattern-->
+                        <!--&&( form.controls['password'].dirty || form.controls['password'].touched )"-->
+                 <!--class="invalid-feedback d-block">-->
+              <!--La contraseña debe tener al menos un caracter especial.-->
+            <!--</div>-->
+            <div *ngIf="form.controls['password'].errors?.minlength
+                        &&( form.controls['password'].dirty || form.controls['password'].touched )"
+                 class="invalid-feedback d-block">
+              La contraseña es demasiado corta.
             </div>
           </div>
         </div>
+
         <div class="row">
-          <div class="col-6 mb-3">
+          <div class="form-group col-6 mb-3">
             <!-- Celda vacía -->
           </div>
-          <div class="col-6 mb-3">
-            <label for="password">Verificar contraseña</label>
-            <input type="password" class="form-control">
-            <div class="invalid-feedback">
-              Verificar contraseña.
+          <div class="form-group col-6 mb-3">
+            <label class="col-form-label">Verificar contraseña</label>
+            <input type="password" class="form-control" maxlength="20" formControlName="passwordVerification">
+            <div *ngIf="form.controls['passwordVerification'].errors?.required
+                        &&( form.controls['password'].dirty || form.controls['password'].touched )"
+                 class="invalid-feedback d-block">
+              Por favor verifique la contraseña.
+            </div>
+            <div *ngIf="form.controls['passwordVerification'].errors?.notEqual
+                        &&( form.controls['password'].dirty || form.controls['password'].touched )"
+                 class="invalid-feedback d-block">
+              Los campos no coinciden.
             </div>
           </div>
         </div>
+
         <hr class="mb-4">
+
         <h4 class="mb-3">Dirección</h4>
-        <div class="row">
-          <div class="col-9 mb-3">
-            <label for="street">Calle</label>
-            <input type="text" class="form-control" id="street">
-            <div class="invalid-feedback">
-              Calle inválida.
+
+        <div formGroupName="address">
+          <div class="row">
+            <div class="form-group col-6 mb-3">
+              <label class="col-form-label">Calle</label>
+              <input type="text" class="form-control" maxlength="50" formControlName="street">
+              <div *ngIf="form.get('address.street').errors?.required
+                          &&( form.get('address.street').dirty || form.get('address.street').touched )"
+                   class="invalid-feedback d-block">
+                Este campo es requerido.
+              </div>
+              <div *ngIf="form.get('address.street').errors?.pattern
+                          &&( form.get('address.street').dirty || form.get('address.street').touched )"
+                   class="invalid-feedback d-block">
+                Calle inválida.
+              </div>
+            </div>
+            <div class="form-group col-3 mb-3">
+              <label class="col-form-label">Número</label>
+              <input type="text" class="form-control" maxlength="7" formControlName="number">
+              <div *ngIf="form.get('address.number').errors?.required
+                          &&( form.get('address.number').dirty || form.get('address.number').touched )"
+                   class="invalid-feedback d-block">
+                Este campo es requerido.
+              </div>
+              <div *ngIf="form.get('address.number').errors?.pattern
+              &&( form.get('address.number').dirty || form.get('address.number').touched )"
+                   class="invalid-feedback d-block">
+                Eso no es un número.
+              </div>
+            </div>
+            <div class="form-group col-3 mb-3">
+              <label class="col-form-label">Número Interior</label>
+              <input type="text" class="form-control" maxlength="5" formControlName="interiorNumber">
+              <div *ngIf="form.get('address.interiorNumber').errors?.required
+                          &&( form.get('address.interiorNumber').dirty || form.get('address.interiorNumber').touched )"
+                   class="invalid-feedback d-block">
+                Este campo es requerido.
+              </div>
+              <div *ngIf="form.get('address.interiorNumber').errors?.pattern
+              &&( form.get('address.interiorNumber').dirty || form.get('address.interiorNumber').touched )"
+                   class="invalid-feedback d-block">
+                Número interior inválido.
+              </div>
             </div>
           </div>
-          <div class="col-3 mb-3">
-            <label for="streetNumber">Número</label>
-            <input type="text" class="form-control" id="streetNumber">
-            <div class="invalid-feedback">
-              Número inválido.
+
+          <div class="row">
+            <div class="form-group col-6 mb-3">
+              <label class="col-form-label">Colonia</label>
+              <input type="text" class="form-control" maxlength="50" formControlName="neighborhood">
+              <div *ngIf="form.get('address.neighborhood').errors?.required
+                          &&( form.get('address.neighborhood').dirty || form.get('address.neighborhood').touched )"
+                   class="invalid-feedback d-block">
+                Este campo es requerido.
+              </div>
+              <div *ngIf="form.get('address.neighborhood').errors?.pattern
+                          &&( form.get('address.neighborhood').dirty || form.get('address.neighborhood').touched )"
+                   class="invalid-feedback d-block">
+                Colonia inválida.
+              </div>
+            </div>
+            <div class="form-group col-3 mb-3">
+              <label class="col-form-label">Código Postal</label>
+              <input type="text" class="form-control" maxlength="6" formControlName="zipCode">
+              <div *ngIf="form.get('address.zipCode').errors?.required
+                          &&( form.get('address.zipCode').dirty || form.get('address.zipCode').touched )"
+                   class="invalid-feedback d-block">
+                Este campo es requerido.
+              </div>
+              <div *ngIf="(form.get('address.zipCode').errors?.pattern || form.get('address.zipCode').errors?.minlength)
+                           &&( form.get('address.zipCode').dirty || form.get('address.zipCode').touched )"
+                   class="invalid-feedback d-block">
+                Código Postal inválido.
+              </div>
+            </div>
+            <div class="form-group col-3 mb-3"
+                 [ngClass]="{'error': (!form.get('address.phone').valid && form.get('address.phone').touched)}">
+              <label class="col-form-label">Teléfono</label>
+              <input class="form-control" type="text" maxlength="10" formControlName="phone">
+              <div *ngIf="form.get('address.phone').errors?.required
+                          &&( form.get('address.phone').dirty || form.get('address.phone').touched )"
+                   class="invalid-feedback d-block">
+                Este campo es requerido.
+              </div>
+              <div *ngIf="(form.get('address.phone').errors?.pattern || form.get('address.phone').errors?.minlength)
+                          &&( form.get('address.phone').dirty || form.get('address.phone').touched )"
+                   class="invalid-feedback d-block">
+                Número inválido.
+              </div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-9 mb-3">
-            <label for="neighborhood">Colonia</label>
-            <input type="text" class="form-control" id="neighborhood">
-            <div class="invalid-feedback">
-              Calle inválida.
-            </div>
-          </div>
-          <div class="col-3 mb-3">
-            <label for="zipCode">Código Postal</label>
-            <input type="text" class="form-control" id="zipCode">
-            <div class="invalid-feedback">
-              Número inválido.
-            </div>
-          </div>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="save-info">
-          <label class="custom-control-label" for="save-info">Estoy de acuerdo con los <a [routerLink]="['/terms']">
-            términos y condiciones</a>.
+
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" formControlName="agreement">
+          <label class="form-check-label">Estoy de acuerdo con los
+            <a [routerLink]="['/terms']">términos y condiciones</a>.
           </label>
+          <div *ngIf="(form.controls['agreement'].errors?.required || form.controls['agreement'].errors?.pattern)
+                      &&( form.controls['agreement'].dirty || form.controls['agreement'].touched )"
+               class="invalid-feedback d-block">
+            Debe aceptar nuestros términos y condiciones.
+          </div>
         </div>
+
         <hr class="mb-4">
-        <button class="btn btn-outline-primary btn-lg btn-block" type="submit">Registrar</button>
+
+        <button [disabled]="this.disableBtn" class="btn btn-outline-primary btn-lg btn-block" type="submit">
+          Registrar
+        </button>
       </form>
+
     </div>
   </div>
 </div>
