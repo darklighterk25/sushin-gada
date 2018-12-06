@@ -25,11 +25,9 @@ export class NavbarComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-  cart: Order;
-  isEmployee: Boolean = false;
-  isLogged: Boolean = false;
-  loading: Boolean = false;
-  cartLoaded: Boolean = false;
+  isEmployee: boolean;
+  isLogged: boolean;
+  loading: boolean;
   userID: number;
 
   constructor( private _accountsService: AccountsService,
@@ -37,22 +35,25 @@ export class NavbarComponent implements OnInit {
                public snackBar: MatSnackBar ) {
   }
 
-  ngOnInit() {
-    this._accountsService.logged().subscribe( ( response ) => {
-      this.isLogged = response['logged_in'] === 'true';
-      this.isEmployee = response['employee'] === 'true';
-      this.userID = response['id_user'];
-      this.loading = false;
-      if ( this.isLogged ) {
-        this._ordersService.getCart().subscribe( ( cart: Order ) => {
-          this.cart = cart;
-          this.cartLoaded = true;
-        });
+  ngOnInit(): void {
+    this.loading = true;
+    this._accountsService.logged().subscribe(
+      response => {
+        this.isLogged = response['logged_in'] === 'true';
+        this.isEmployee = response['employee'] === 'true';
+        this.userID = response['id_user'];
+        this.loading = false;
+      },
+      () => {
+        this.isEmployee = false;
+        this.isLogged = false;
+        this.loading = false;
       }
-    });
+    );
   }
 
-  alert( message: string ) {
+  // Recibe como parámetro una cadena de texto y despliega una alerta con el contenido de esta.
+  alert( message: string ): void {
     this.snackBar.open(message, null, {
       duration: 2000,
       horizontalPosition: this.horizontalPosition,
@@ -60,7 +61,7 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  login( email, password ) {
+  login( email, password ): void {
     this.loading = true;
     // Si el componente sigue cargando después de cinco segundos.
     setTimeout(
@@ -79,21 +80,15 @@ export class NavbarComponent implements OnInit {
           this.isEmployee = response['employee'] === 'true';
           this.userID = response['id_user'];
           this.loading = false;
-          if ( this.isLogged ) {
-            this._ordersService.getCart().subscribe( ( cart: Order ) => {
-              this.cart = cart;
-              this.cartLoaded = true;
-            });
-          }
         },
-        error => {
+        () => {
           this.alert( 'Usuario o contraseña inválido' );
           this.loading = false;
         }
       );
   }
 
-  logout() {
+  logout(): void {
     this._accountsService.logout().subscribe(
       response => {
         this.isLogged = response['logged_in'] === 'true';
