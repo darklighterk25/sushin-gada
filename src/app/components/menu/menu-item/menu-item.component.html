@@ -22,16 +22,17 @@
             Cantidad:
           </div>
           <div class="col-md-6">
-            <input type="number" class="form-control text-center" value="1" size="1" #quantity>
+            <input type="number" class="form-control text-center" value="1" size="1" min="1" max="10" #quantity>
           </div>
         </div>
       </div>
     </div>
     <!-- Agregar al carrito -->
     <div class="row mb-3">
-      <button type="button" class="btn btn-outline-primary btn-block ml-3 mr-3" (click)="addToCart(quantity.value)">
+      <button *ngIf="!loading" type="button" class="btn btn-outline-primary btn-block ml-3 mr-3" (click)="addToCart(quantity.value)">
         Agregar al carrito
       </button>
+      <mat-progress-bar mode="indeterminate" *ngIf="loading" class="my-3"></mat-progress-bar>
     </div>
     </div>
 </div>

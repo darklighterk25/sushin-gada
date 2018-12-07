@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../interfaces/item';
-import { MenuService } from '../../../services/menu/menu.service';
+import { OrdersService } from '../../../services/orders/orders.service';
 
 @Component({
   selector: 'app-menu-item',
@@ -9,14 +9,24 @@ import { MenuService } from '../../../services/menu/menu.service';
 export class MenuItemComponent implements OnInit {
 
   @Input() item: Item;
+  loading: boolean;
 
-  constructor( private _menuService: MenuService ) { }
+  constructor( private _ordersService: OrdersService ) {
+    this.loading = false;
+  }
 
   ngOnInit() { }
 
   addToCart( quantity: number ) {
     this.item.quantity = quantity;
-    this._menuService.addToCart( this.item ).subscribe();
+    this.loading = true;
+    setTimeout( () => {
+      this._ordersService.addToCart( this.item ).subscribe(
+        () => {
+          this.loading = false;
+        }
+      );
+    }, 1000 );
   }
 
 }

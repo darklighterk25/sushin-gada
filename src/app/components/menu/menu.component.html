@@ -5,6 +5,6 @@
   <hr>
   <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
   <div *ngIf="!loading" class="row card-columns m-5">
-    <app-menu-item class="col-3 animated zoomIn" [item]="item" *ngFor="let item of menu"></app-menu-item>
+    <app-menu-item class="col-3 animated fadeIn" [item]="item" *ngFor="let item of menu"></app-menu-item>
   </div>
 </div>

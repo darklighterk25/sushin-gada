@@ -15,8 +15,4 @@ export class MenuService {
     return this._httpClient.get( API.ENDPOINT + '/menu' );
   }
 
-  addToCart( body: Item ): Observable<Object> {
-    return this._httpClient.put( API.ENDPOINT + '/menu/addToCart', body, API.OPTIONS );
-  }
-
 }

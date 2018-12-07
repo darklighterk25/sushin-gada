@@ -10,6 +10,12 @@ export class OrdersService {
 
   constructor( private _httpClient: HttpClient ) {
   }
+  addToCart( body: Object ): Observable<Object> {
+    return this._httpClient.put( API.ENDPOINT + '/account/cart/add-item',  body, API.OPTIONS );
+  }
+  deleteCart(): Observable<Object> {
+    return this._httpClient.post( API.ENDPOINT + '/account/cart', API.OPTIONS );
+  }
   getCart(): Observable<Object> {
     return this._httpClient.get( API.ENDPOINT + '/account/cart', API.OPTIONS );
   }
