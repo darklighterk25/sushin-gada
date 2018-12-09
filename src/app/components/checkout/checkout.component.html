@@ -9,7 +9,7 @@
   </div>
 
   <div class="row">
-    <!-- Carrito -->
+    <!--Carrito-->
     <div class="col-4 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
         Pedido
@@ -39,125 +39,223 @@
       </form>
     </div>
 
-    <!-- Formulario -->
+    <!--Formulario-->
     <div class="col-8 order-md-1">
-      <h4 class="mb-3">Facturación</h4>
-      <form class="needs-validation" novalidate="">
-        <div class="row">
-          <div class="col-6 mb-3">
-            <label for="firstName">Nombre(s)</label>
-            <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
-            <div class="invalid-feedback">
-              Nombre inválido.
-            </div>
-          </div>
-          <div class="col-6 mb-3">
-            <label for="lastName">Apellidos</label>
-            <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
-            <div class="invalid-feedback">
-              Apellido inválido.
-            </div>
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <label for="email">Correo electrónico <span class="text-muted">(Opcional)</span></label>
-          <input type="email" class="form-control" id="email" placeholder="usuario@ejemplo.com">
-          <div class="invalid-feedback">
-            Correo electrónico inválido.
-          </div>
-        </div>
+      <form [formGroup]="form" (ngSubmit)="purchase()">
 
         <div class="row">
-          <div class="col-9 mb-3">
-            <label for="address">Calle</label>
-            <input type="text" class="form-control" id="street" required="">
-            <div class="invalid-feedback">
+          <!--Calle-->
+          <div class="form-group col-6 mb-3">
+            <label class="col-form-label">Calle</label>
+            <input type="text" class="form-control" maxlength="50" formControlName="street">
+            <div *ngIf="form.get('street').errors?.required
+                          &&( form.get('street').dirty || form.get('street').touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
+            </div>
+            <div *ngIf="form.get('street').errors?.pattern
+                          &&( form.get('street').dirty || form.get('street').touched )"
+                 class="invalid-feedback d-block">
               Calle inválida.
             </div>
           </div>
-  
-          <div class="col-3 mb-3">
-            <label for="address">Número</label>
-            <input type="text" class="form-control" id="streetNumber" required="">
-            <div class="invalid-feedback">
+
+          <!--Número-->
+          <div class="form-group col-3 mb-3">
+            <label class="col-form-label">Número</label>
+            <input type="text" class="form-control" maxlength="7" formControlName="number">
+            <div *ngIf="form.get('number').errors?.required
+                          &&( form.get('number').dirty || form.get('number').touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
+            </div>
+            <div *ngIf="form.get('number').errors?.pattern
+              &&( form.get('number').dirty || form.get('number').touched )"
+                 class="invalid-feedback d-block">
+              Eso no es un número.
+            </div>
+          </div>
+
+          <!--Número interior-->
+          <div class="form-group col-3 mb-3">
+            <label class="col-form-label">Número Interior</label>
+            <input type="text" class="form-control" maxlength="5" formControlName="interiorNumber">
+            <div *ngIf="form.get('interiorNumber').errors?.required
+                          &&( form.get('interiorNumber').dirty || form.get('interiorNumber').touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
+            </div>
+            <div *ngIf="form.get('interiorNumber').errors?.pattern
+              &&( form.get('interiorNumber').dirty || form.get('interiorNumber').touched )"
+                 class="invalid-feedback d-block">
+              Número interior inválido.
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!--Colonia-->
+          <div class="form-group col-6 mb-3">
+            <label class="col-form-label">Colonia</label>
+            <input type="text" class="form-control" maxlength="50" formControlName="neighborhood">
+            <div *ngIf="form.get('neighborhood').errors?.required
+                          &&( form.get('neighborhood').dirty || form.get('neighborhood').touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
+            </div>
+            <div *ngIf="form.get('neighborhood').errors?.pattern
+                          &&( form.get('neighborhood').dirty || form.get('neighborhood').touched )"
+                 class="invalid-feedback d-block">
+              Colonia inválida.
+            </div>
+          </div>
+
+          <!--Código Postal-->
+          <div class="form-group col-3 mb-3">
+            <label class="col-form-label">Código Postal</label>
+            <input type="text" class="form-control" maxlength="6" formControlName="zipCode">
+            <div *ngIf="form.get('zipCode').errors?.required
+                          &&( form.get('zipCode').dirty || form.get('zipCode').touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
+            </div>
+            <div *ngIf="(form.get('zipCode').errors?.pattern || form.get('zipCode').errors?.minlength)
+                           &&( form.get('zipCode').dirty || form.get('zipCode').touched )"
+                 class="invalid-feedback d-block">
+              Código Postal inválido.
+            </div>
+          </div>
+
+          <!--Teléfono-->
+          <div class="form-group col-3 mb-3">
+            <label class="col-form-label">Teléfono</label>
+            <input class="form-control" type="text" maxlength="10" formControlName="phone">
+            <div *ngIf="form.get('phone').errors?.required
+                          &&( form.get('phone').dirty || form.get('phone').touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
+            </div>
+            <div *ngIf="(form.get('phone').errors?.pattern || form.get('phone').errors?.minlength)
+                          &&( form.get('phone').dirty || form.get('phone').touched )"
+                 class="invalid-feedback d-block">
               Número inválido.
             </div>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-9 mb-3">
-            <label for="address">Colonia</label>
-            <input type="text" class="form-control" id="address" required="">
-            <div class="invalid-feedback">
-              Calle inválida.
-            </div>
-          </div>
-  
-          <div class="col-3 mb-3">
-            <label for="address">Código Postal</label>
-            <input type="text" class="form-control" id="postal" required="">
-            <div class="invalid-feedback">
-              Número inválido.
-            </div>
-          </div>
-        </div>
+        <!--<div class="custom-control custom-checkbox">-->
+          <!--<input type="checkbox" class="custom-control-input" id="save-info">-->
+          <!--<label class="custom-control-label" for="save-info">Guardar información para próxima compra.</label>-->
+        <!--</div>-->
 
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="save-info">
-          <label class="custom-control-label" for="save-info">Guardar información para próxima compra.</label>
-        </div>
         <hr class="mb-4">
-
 
         <h4 class="mb-3">Formas de pago</h4>
 
+        <!---->
         <div class="d-block my-3">
           <div class="custom-control custom-radio">
-            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
+            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input">
             <label class="custom-control-label" for="credit">Tarjeta de crédito</label>
           </div>
           <div class="custom-control custom-radio">
-            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
+            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input">
             <label class="custom-control-label" for="debit">Tarjeta de débito</label>
           </div>
         </div>
+
         <div class="row">
+          <!--Titular-->
           <div class="col-6 mb-3">
-            <label for="cc-name">Titular</label>
-            <input type="text" class="form-control" id="cc-name" placeholder="" required="">
-            <small class="text-muted">Nombre que aparece en la tarjeta</small>
-            <div class="invalid-feedback">
-              Se requiere el nombre
+            <label>Titular</label>
+            <input type="text" class="form-control" formControlName="cardName">
+            <div *ngIf="form.controls['cardName'].errors?.required
+                        &&( form.controls['cardName'].dirty || form.controls['cardName'].touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
+            </div>
+            <div *ngIf="form.controls['cardName'].errors?.pattern
+                        &&( form.controls['cardName'].dirty || form.controls['cardName'].touched)"
+                 class="invalid-feedback d-block">
+              El nombre es inválido.
             </div>
           </div>
-          <div class="col-6 mb-3">
-            <label for="cc-number">Número de la tarjeta</label>
-            <input type="text" class="form-control" id="cc-number" placeholder="" required="">
-            <div class="invalid-feedback">
-              Se requiere el número de la tarjeta
+
+          <!--Número de la tarjeta-->
+          <div class="col-5 mb-3">
+            <label>Número de la tarjeta</label>
+            <input type="text" maxlength="16" class="form-control" formControlName="cardNumber">
+            <div *ngIf="form.controls['cardNumber'].errors?.required
+                        &&( form.controls['cardNumber'].dirty || form.controls['cardNumber'].touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
             </div>
+            <div *ngIf="(form.controls['cardNumber'].errors?.pattern || form.controls['cardNumber'].errors?.minlength)
+                        &&( form.controls['cardNumber'].dirty || form.controls['cardNumber'].touched)"
+                 class="invalid-feedback d-block">
+              Número inválido
+            </div>
+          </div>
+
+          <!--Ícono-->
+          <div class="col-1 mb-3">
+
           </div>
         </div>
         <div class="row">
+          <!--Fecha de vencimiento-->
           <div class="col-3 mb-3">
-            <label for="cc-expiration">Fecha de vencimiento</label>
-            <input type="text" class="form-control" id="cc-expiration" placeholder="mm/aa" required="">
-            <div class="invalid-feedback">
-              Se requiere la fecha de vencimiento
+            <label>Fecha de vencimiento</label>
+            <input type="text" class="form-control" formControlName="expiration">
+            <div *ngIf="form.controls['expiration'].errors?.required
+                        &&( form.controls['expiration'].dirty || form.controls['expiration'].touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
+            </div>
+            <div *ngIf="form.controls['expiration'].errors?.pattern
+                        &&( form.controls['expiration'].dirty || form.controls['expiration'].touched)"
+                 class="invalid-feedback d-block">
+              Expiración inválida
             </div>
           </div>
+
+          <!--Número de seguridad-->
           <div class="col-3 mb-3">
-            <label for="cc-expiration">Número de seguridad</label>
-            <input type="text" class="form-control" id="cc-cvv" placeholder="---" required="">
-            <div class="invalid-feedback">
-              Se requiere el número de seguridad
+            <label>Número de seguridad</label>
+            <input type="text" class="form-control" maxlength="3" formControlName="ccv">
+            <div *ngIf="form.controls['ccv'].errors?.required
+                        &&( form.controls['ccv'].dirty || form.controls['ccv'].touched )"
+                 class="invalid-feedback d-block">
+              Este campo es requerido.
+            </div>
+            <div *ngIf="(form.controls['ccv'].errors?.pattern || form.controls['ccv'].errors?.minlength)
+                        &&( form.controls['ccv'].dirty || form.controls['ccv'].touched)"
+                 class="invalid-feedback d-block">
+              Número inválido
             </div>
           </div>
         </div>
+
         <hr class="mb-4">
-        <button class="btn btn-outline-primary btn-lg btn-block" type="submit">Pagar</button>
+
+        <!--Botones-->
+        <div class="row">
+          <div class="col-4">
+            <button class="btn btn-outline-primary btn-lg btn-block" [routerLink]="['/menu']">
+              Continuar comprando  <fa-icon [icon]="fa_undo"></fa-icon>
+            </button>
+          </div>
+          <div class="col-4">
+            <button class="btn btn-outline-danger btn-lg btn-block">
+              Cancelar compra <fa-icon [icon]="fa_trash"></fa-icon>
+            </button>
+          </div>
+          <div class="col-4">
+            <button [disabled]="this.disableBtn" class="btn btn-outline-success btn-lg btn-block" type="submit">
+              Pagar <fa-icon [icon]="fa_money_bill"></fa-icon>
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
