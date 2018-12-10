@@ -5,6 +5,25 @@ import { Order } from '../../interfaces/order';
 import { OrdersService } from '../../services/orders/orders.service';
 import { faMoneyBill, faTrash, faUndo } from '@fortawesome/free-solid-svg-icons';
 
+enum CardType {
+  None,
+  AmericanExpress,
+  DinersClub,
+  Discover,
+  JCB,
+  MasterCard,
+  Visa
+}
+
+enum CardRegExp {
+  AmericanExpress = '^[34|37][0-9]{14}$',
+  DinersClub = '^3(?:0[0-5]|[68][0-9])[0-9]{11}$',
+  Discover = '^65[4-9][0-9]{13}|64[4-9][0-9]{13}|6011[0-9]{12}|(622(?:12[6-9]|1[3-9][0-9]|[2-8][0-9][0-9]|9[01][0-9]|92[0-5])[0-9]{10})$',
+  JCB = '^(?:2131|1800|35\\d{3})\\d{11}$',
+  MasterCard = '^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$',
+  Visa = '^4[0-9]{12}(?:[0-9]{3})?$'
+}
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html'
@@ -13,6 +32,7 @@ export class CheckoutComponent implements OnInit {
 
   address: Address;
   cart: Order;
+  cardType: number;
   disableBtn = true;
   form: FormGroup;
   loading: Boolean = true;
@@ -23,6 +43,7 @@ export class CheckoutComponent implements OnInit {
   fa_undo = faUndo;
 
   constructor( private _ordersService: OrdersService ) {
+    this.cardType = CardType.None;
     this.form = new FormGroup({
       'street': new FormControl(
         '',
@@ -56,7 +77,7 @@ export class CheckoutComponent implements OnInit {
         [
           Validators.required,
           Validators.pattern('[0-9]*'),
-          Validators.minLength(6)
+          Validators.minLength(5)
         ]
       ),
       'phone': new FormControl(
@@ -80,7 +101,7 @@ export class CheckoutComponent implements OnInit {
         [
           Validators.required,
           Validators.pattern('[0-9]*'),
-          Validators.minLength(16)
+          Validators.minLength(14)
         ]
       ),
       'expiration': new FormControl(
@@ -90,7 +111,7 @@ export class CheckoutComponent implements OnInit {
           Validators.pattern('^(0[1-9]|1[0-2])\\/?([0-9]{4}|[0-9]{2})$')
         ]
       ),
-      'ccv': new FormControl(
+      'cvc': new FormControl(
         '',
         [
           Validators.required,
@@ -103,6 +124,7 @@ export class CheckoutComponent implements OnInit {
     this.form.valueChanges.subscribe(
       () => {
         this.disableBtn = !this.form.valid;
+        this.cardType = this.getCardType();
       }
     );
   }
@@ -114,16 +136,39 @@ export class CheckoutComponent implements OnInit {
       }
     );
   }
+  getCardType(): number {
+    const CARD_NUMBER = this.form.get('cardNumber').value;
+    if (CARD_NUMBER.match(CardRegExp.AmericanExpress)) {
+      return CardType.AmericanExpress;
+    }
+    if (CARD_NUMBER.match(CardRegExp.DinersClub)) {
+      return CardType.DinersClub;
+    }
+    if (CARD_NUMBER.match(CardRegExp.Discover)) {
+      return CardType.Discover;
+    }
+    if (CARD_NUMBER.match(CardRegExp.JCB)) {
+      return CardType.JCB;
+    }
+    if (CARD_NUMBER.match(CardRegExp.MasterCard)) {
+      return CardType.MasterCard;
+    }
+    if (CARD_NUMBER.match(CardRegExp.Visa)) {
+      return CardType.Visa;
+    }
+    return CardType.None;
+  }
   purchase(): void {
     const EXPIRATION = this.getExpiration(this.form.get('expiration').value);
     this._ordersService.purchase(
         {
           amount: this.cart.total * 100,
           description: 'Sushin\' Gada',
+          phone: this.form.get('phone').value,
           card: {
             expMonth: EXPIRATION[0],
             expYear: EXPIRATION[1],
-            ccv: this.form.get('ccv').value,
+            cvc: this.form.get('cvc').value,
             number: this.form.get('cardNumber').value
           }
         }

@@ -113,7 +113,7 @@
           <!--Código Postal-->
           <div class="form-group col-3 mb-3">
             <label class="col-form-label">Código Postal</label>
-            <input type="text" class="form-control" maxlength="6" formControlName="zipCode">
+            <input type="text" class="form-control" maxlength="5" formControlName="zipCode">
             <div *ngIf="form.get('zipCode').errors?.required
                           &&( form.get('zipCode').dirty || form.get('zipCode').touched )"
                  class="invalid-feedback d-block">
@@ -198,8 +198,13 @@
           </div>
 
           <!--Ícono-->
-          <div class="col-1 mb-3">
-
+          <div class="col-1 mt-4 mb-3" [ngSwitch]="cardType">
+            <img *ngSwitchCase="1" src="assets/img/american-express.png"/>
+            <img *ngSwitchCase="2" src="assets/img/diners-club.png"/>
+            <img *ngSwitchCase="3" src="assets/img/discover.png"/>
+            <img *ngSwitchCase="4" src="assets/img/jcb.png"/>
+            <img *ngSwitchCase="5" src="assets/img/mastercard.png"/>
+            <img *ngSwitchCase="6" src="assets/img/visa.png"/>
           </div>
         </div>
         <div class="row">
@@ -222,14 +227,14 @@
           <!--Número de seguridad-->
           <div class="col-3 mb-3">
             <label>Número de seguridad</label>
-            <input type="text" class="form-control" maxlength="3" formControlName="ccv">
-            <div *ngIf="form.controls['ccv'].errors?.required
-                        &&( form.controls['ccv'].dirty || form.controls['ccv'].touched )"
+            <input type="text" class="form-control" maxlength="3" formControlName="cvc">
+            <div *ngIf="form.controls['cvc'].errors?.required
+                        &&( form.controls['cvc'].dirty || form.controls['cvc'].touched )"
                  class="invalid-feedback d-block">
               Este campo es requerido.
             </div>
-            <div *ngIf="(form.controls['ccv'].errors?.pattern || form.controls['ccv'].errors?.minlength)
-                        &&( form.controls['ccv'].dirty || form.controls['ccv'].touched)"
+            <div *ngIf="(form.controls['cvc'].errors?.pattern || form.controls['cvc'].errors?.minlength)
+                        &&( form.controls['cvc'].dirty || form.controls['cvc'].touched)"
                  class="invalid-feedback d-block">
               Número inválido
             </div>
