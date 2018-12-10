@@ -227,7 +227,7 @@
           <!--Número de seguridad-->
           <div class="col-3 mb-3">
             <label>Número de seguridad</label>
-            <input type="text" class="form-control" maxlength="3" formControlName="cvc">
+            <input type="password" class="form-control" maxlength="3" formControlName="cvc">
             <div *ngIf="form.controls['cvc'].errors?.required
                         &&( form.controls['cvc'].dirty || form.controls['cvc'].touched )"
                  class="invalid-feedback d-block">
@@ -244,7 +244,7 @@
         <hr class="mb-4">
 
         <!--Botones-->
-        <div class="row">
+        <div *ngIf="!processing" class="row">
           <div class="col-4">
             <button class="btn btn-outline-primary btn-lg btn-block" [routerLink]="['/menu']">
               Continuar comprando  <fa-icon [icon]="fa_undo"></fa-icon>
@@ -261,6 +261,16 @@
             </button>
           </div>
         </div>
+
+        <mat-progress-bar *ngIf="processing" class="row my-5" mode="indeterminate"></mat-progress-bar>
+
+        <!--Mensaje de error-->
+        <div *ngIf="error" class="row m-1 alert alert-danger" role="alert">
+          <div class="text-center m-1">
+            <strong>El pago fue declinado.</strong> Por favor intente nuevamente, si el problema persiste por favor intente con otra tarjeta.
+          </div>
+        </div>
+
       </form>
     </div>
   </div>

@@ -34,8 +34,10 @@ export class CheckoutComponent implements OnInit {
   cart: Order;
   cardType: number;
   disableBtn = true;
+  error = false;
   form: FormGroup;
-  loading: Boolean = true;
+  loading = true;
+  processing = false;
 
   // Íconos:
   fa_trash = faTrash;
@@ -159,6 +161,7 @@ export class CheckoutComponent implements OnInit {
     return CardType.None;
   }
   purchase(): void {
+    this.processing = true;
     const EXPIRATION = this.getExpiration(this.form.get('expiration').value);
     this._ordersService.purchase(
         {
@@ -175,6 +178,11 @@ export class CheckoutComponent implements OnInit {
       ).subscribe(
       response => {
         console.log( response );
+        this.processing = false;
+      },
+      () => {
+        this.error = true;
+        this.processing = false;
       }
     );
   }
