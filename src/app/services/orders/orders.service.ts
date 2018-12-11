@@ -20,7 +20,7 @@ export class OrdersService {
     return this._httpClient.get( API.ENDPOINT + '/account/cart', API.OPTIONS );
   }
   getOrders(): Observable<Object> {
-    return this._httpClient.get( API.ENDPOINT + '/account/orders' );
+    return this._httpClient.get( API.ENDPOINT + '/account/orders', API.OPTIONS );
   }
   purchase( body: Object ): Observable<Object> {
     return this._httpClient.put( API.ENDPOINT + '/account/orders/purchase', body, API.OPTIONS );
