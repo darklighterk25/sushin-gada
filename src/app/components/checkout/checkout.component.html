@@ -4,9 +4,7 @@
     <h1 class="ml-5">Pago</h1>
   </div>
   <hr>
-  <div class="row">
-    <p class="lead">Por favor llene todos los campos.</p>
-  </div>
+  <h4 class="mb-3">Dirección</h4>
 
   <div class="row">
     <!--Carrito-->
@@ -29,11 +27,11 @@
         </li>
       </ul>
 
-      <form class="card p-2">
+      <form [formGroup]="promoForm" (ngSubmit)="getPromoCode( '' )" class="card p-2">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Código promocional">
+          <input type="text" class="form-control" placeholder="Código promocional" maxlength="6" formControlName="code">
           <div class="input-group-append">
-            <button type="submit" class="btn btn-outline-primary">Validar</button>
+            <button [disabled]="this.disablePromoBtn" type="submit" class="btn btn-outline-primary">Validar</button>
           </div>
         </div>
       </form>
@@ -143,26 +141,9 @@
           </div>
         </div>
 
-        <!--<div class="custom-control custom-checkbox">-->
-          <!--<input type="checkbox" class="custom-control-input" id="save-info">-->
-          <!--<label class="custom-control-label" for="save-info">Guardar información para próxima compra.</label>-->
-        <!--</div>-->
-
         <hr class="mb-4">
 
-        <h4 class="mb-3">Formas de pago</h4>
-
-        <!---->
-        <div class="d-block my-3">
-          <div class="custom-control custom-radio">
-            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input">
-            <label class="custom-control-label" for="credit">Tarjeta de crédito</label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input">
-            <label class="custom-control-label" for="debit">Tarjeta de débito</label>
-          </div>
-        </div>
+        <h4 class="mb-3">Información de la tarjeta</h4>
 
         <div class="row">
           <!--Titular-->

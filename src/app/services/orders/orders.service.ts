@@ -16,8 +16,14 @@ export class OrdersService {
   deleteCart(): Observable<Object> {
     return this._httpClient.post( API.ENDPOINT + '/account/cart/delete', API.OPTIONS );
   }
+  getBillingAddress(): Observable<Object> {
+    return this._httpClient.get( API.ENDPOINT + '/account/billing-address', API.OPTIONS );
+  }
   getCart(): Observable<Object> {
     return this._httpClient.get( API.ENDPOINT + '/account/cart', API.OPTIONS );
+  }
+  getPromoCode( code: string ): Observable<Object> {
+    return this._httpClient.post( API.ENDPOINT + '/account/orders/promocode', code, API.OPTIONS );
   }
   getOrders(): Observable<Object> {
     return this._httpClient.get( API.ENDPOINT + '/account/orders', API.OPTIONS );

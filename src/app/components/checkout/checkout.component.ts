@@ -34,10 +34,13 @@ export class CheckoutComponent implements OnInit {
   cart: Order;
   cardType: number;
   disableBtn = true;
+  disablePromoBtn = true;
+  discount = 0;
   error = false;
   form: FormGroup;
   loading = true;
   processing = false;
+  promoForm: FormGroup;
 
   // Íconos:
   fa_trash = faTrash;
@@ -129,6 +132,27 @@ export class CheckoutComponent implements OnInit {
         this.cardType = this.getCardType();
       }
     );
+    // Carga la última dirección utilizada.
+    this._ordersService.getBillingAddress().subscribe(
+      response => {
+        this.address = response['address'];
+        this.form.get('street').setValue(response['address'].street);
+        this.form.get('number').setValue(response['address'].number);
+        this.form.get('interiorNumber').setValue(response['address'].interiorNumber);
+        this.form.get('neighborhood').setValue(response['address'].neighborhood);
+        this.form.get('zipCode').setValue(response['address'].zipCode);
+        this.form.get('phone').setValue(response['address'].phone);
+      }
+    );
+    // Formulario para el código promocional.
+    this.promoForm = new FormGroup( {
+      'code': new FormControl('', [ Validators.required, Validators.minLength(6) ] )
+    });
+    this.promoForm.valueChanges.subscribe(
+      () => {
+        this.disablePromoBtn = !this.promoForm.valid;
+      }
+    );
   }
   ngOnInit(): void {
     this._ordersService.getCart().subscribe(
@@ -193,5 +217,12 @@ export class CheckoutComponent implements OnInit {
       EXPIRATION[1] = EXPIRATION[1].substring(2, 4);
     }
     return EXPIRATION;
+  }
+  getPromoCode( code: string ): void {
+    this._ordersService.getPromoCode( code ).subscribe(
+      response => {
+        this.discount = response['discount'];
+      }
+    );
   }
 }
