@@ -1,54 +1,62 @@
 <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
 <div class="container-fluid animated fadeIn my-5" *ngIf="!loading">
-    <div class="row animated slideInRight">
-        <h1 class="ml-5">Carrito</h1>
+  <div class="row animated slideInRight">
+    <h1 class="ml-5">Carrito</h1>
+  </div>
+  <hr>
+  <div *ngIf="cart == null">
+    <div class="alert alert-danger" role="alert">
+      <strong>No hay artículos en tu carrito actualmente.</strong> Pero siempre puedes <a [routerLink]="['/menu']">hacer un pedido :)</a>
     </div>
-    <hr>
+  </div>
+  <div *ngIf="cart != null">
     <div class="row">
-        <div class="col-5">
-            <h4>Producto</h4>
-        </div>
-        <div class="col-2 text-center">
-            <h4>Precio</h4>
-        </div>
-        <div class="col-2 text-center">
-            <h4>Cantidad</h4>
-        </div>
-        <div class="col-2 text-right">
-            <h4>Subtotal</h4>
-        </div>
-        <div class="col-1 text-center">
-            <!-- Casilla vacía -->
-        </div>
+      <div class="col-5">
+        <h4>Producto</h4>
+      </div>
+      <div class="col-2 text-center">
+        <h4>Precio</h4>
+      </div>
+      <div class="col-2 text-center">
+        <h4>Cantidad</h4>
+      </div>
+      <div class="col-2 text-right">
+        <h4>Subtotal</h4>
+      </div>
+      <div class="col-1 text-center">
+        <!-- Casilla vacía -->
+      </div>
     </div>
     <hr>
-
-    <div *ngIf="cart != null">
-        <!-- Contenido -->
-        <app-cart-item class="col-4" [item]="item" *ngFor="let item of cart.items"></app-cart-item>
-        <hr>
-
-        <!-- Botones -->
-        <div class="row">
-            <div class="col-3">
-                <a [routerLink]="['/menu']" class="btn btn-outline-primary">
-                  Continuar comprando  <fa-icon [icon]="fa_undo"></fa-icon>
-                </a>
-            </div>
-            <div class="col-3">
-
-            </div>
-            <div class="col-3 text-right">
-                <h5 class="my-2"><strong>Total {{ cart.total | currency:'MXN' }}</strong></h5>
-            </div>
-            <div class="col-3 text-center">
-                <button class="mx-1 btn btn-outline-danger" (click)="deleteCart()">
-                  Borrar carrito <fa-icon [icon]="fa_trash"></fa-icon>
-                </button>
-                <a [routerLink]="['/checkout']" class="mx-1 btn btn-success btn-outline-success">
-                  Pagar <fa-icon [icon]="fa_money_bill"></fa-icon>
-                </a>
-            </div>
+    <div>
+      <!-- Contenido -->
+      <app-cart-item class="col-4" [item]="item" *ngFor="let item of cart.items"></app-cart-item>
+      <hr>
+      <!-- Botones -->
+      <div class="row">
+        <div class="col-3">
+          <a [routerLink]="['/menu']" class="btn btn-outline-primary">
+            Continuar comprando
+            <fa-icon [icon]="fa_undo"></fa-icon>
+          </a>
         </div>
+        <div class="col-3">
+
+        </div>
+        <div class="col-3 text-right">
+          <h5 class="my-2"><strong>Total {{ cart.total | currency:'MXN' }}</strong></h5>
+        </div>
+        <div class="col-3 text-center">
+          <button class="mx-1 btn btn-outline-danger" (click)="deleteCart()">
+            Borrar carrito
+            <fa-icon [icon]="fa_trash"></fa-icon>
+          </button>
+          <a [routerLink]="['/checkout']" class="mx-1 btn btn-success btn-outline-success">
+            Pagar
+            <fa-icon [icon]="fa_money_bill"></fa-icon>
+          </a>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
