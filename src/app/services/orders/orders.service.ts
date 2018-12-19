@@ -14,7 +14,7 @@ export class OrdersService {
     return this._httpClient.put( API.ENDPOINT + '/account/cart/add-item',  body, API.OPTIONS );
   }
   deleteCart(): Observable<Object> {
-    return this._httpClient.post( API.ENDPOINT + '/account/cart/delete', API.OPTIONS );
+    return this._httpClient.delete( API.ENDPOINT + '/account/cart/delete', API.OPTIONS );
   }
   getBillingAddress(): Observable<Object> {
     return this._httpClient.get( API.ENDPOINT + '/account/billing-address', API.OPTIONS );
