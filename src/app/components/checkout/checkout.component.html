@@ -25,9 +25,18 @@
           <span>Total</span>
           <strong>{{ cart.total | currency: "MXN" }}</strong>
         </li>
+        <li *ngIf="discount != 0" class="list-group-item d-flex justify-content-between">
+          <span>Descuento: </span>
+          <strong>{{ discount | percent }}</strong>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Monto total: </span>
+          <strong>{{ cart.total - (cart.total * discount) | currency: "MXN" }}</strong>
+        </li>
       </ul>
 
-      <form [formGroup]="promoForm" (ngSubmit)="getPromoCode( '' )" class="card p-2">
+      <form *ngIf="!loadingPromo && discount == 0" [formGroup]="promoForm"
+            (ngSubmit)="getPromoCode( promoForm.get('code').value )" class="card p-2">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Código promocional" maxlength="6" formControlName="code">
           <div class="input-group-append">
@@ -35,6 +44,16 @@
           </div>
         </div>
       </form>
+
+      <mat-progress-bar *ngIf="loadingPromo" class="my-5" mode="indeterminate"></mat-progress-bar>
+
+      <div *ngIf="!loadingPromo && discount != 0" class="alert alert-success">
+        Código promocional aplicado
+      </div>
+
+      <div *ngIf="!loadingPromo && invalidPromo" class="alert alert-danger my-1">
+        Código promocional inválido
+      </div>
     </div>
 
     <!--Formulario-->
@@ -232,7 +251,7 @@
             </button>
           </div>
           <div class="col-4">
-            <button class="btn btn-outline-danger btn-lg btn-block">
+            <button class="btn btn-outline-danger btn-lg btn-block" (click)="cancelOrder()">
               Cancelar compra <fa-icon [icon]="fa_trash"></fa-icon>
             </button>
           </div>

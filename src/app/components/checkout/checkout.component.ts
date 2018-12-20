@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Address } from '../../interfaces/address';
 import { Order } from '../../interfaces/order';
+import { AccountsService } from '../../services/accounts/accounts.service';
 import { OrdersService } from '../../services/orders/orders.service';
 import { faMoneyBill, faTrash, faUndo } from '@fortawesome/free-solid-svg-icons';
 
@@ -38,7 +40,10 @@ export class CheckoutComponent implements OnInit {
   discount = 0;
   error = false;
   form: FormGroup;
+  idDiscount = 0;
+  invalidPromo = false;
   loading = true;
+  loadingPromo = false;
   processing = false;
   promoForm: FormGroup;
 
@@ -47,7 +52,9 @@ export class CheckoutComponent implements OnInit {
   fa_money_bill = faMoneyBill;
   fa_undo = faUndo;
 
-  constructor( private _ordersService: OrdersService ) {
+  constructor( private _accountsService: AccountsService,
+               private _ordersService: OrdersService,
+               private _router: Router) {
     this.cardType = CardType.None;
     this.form = new FormGroup({
       'street': new FormControl(
@@ -133,21 +140,22 @@ export class CheckoutComponent implements OnInit {
       }
     );
     // Carga la última dirección utilizada.
-    this._ordersService.getBillingAddress().subscribe(
+    this._accountsService.getBillingAddress().subscribe(
       response => {
         this.address = response['address'];
-        this.form.get('street').setValue(response['address'].street);
-        this.form.get('number').setValue(response['address'].number);
-        this.form.get('interiorNumber').setValue(response['address'].interiorNumber);
-        this.form.get('neighborhood').setValue(response['address'].neighborhood);
-        this.form.get('zipCode').setValue(response['address'].zipCode);
-        this.form.get('phone').setValue(response['address'].phone);
+        this.form.get('street').setValue(response['street']);
+        this.form.get('number').setValue(response['number']);
+        this.form.get('interiorNumber').setValue(response['interiorNumber']);
+        this.form.get('neighborhood').setValue(response['neighborhood']);
+        this.form.get('zipCode').setValue(response['zipCode']);
+        this.form.get('phone').setValue(response['phone']);
       }
     );
     // Formulario para el código promocional.
     this.promoForm = new FormGroup( {
       'code': new FormControl('', [ Validators.required, Validators.minLength(6) ] )
     });
+    // Habilita el botón cuando el código promocional es válido.
     this.promoForm.valueChanges.subscribe(
       () => {
         this.disablePromoBtn = !this.promoForm.valid;
@@ -159,6 +167,13 @@ export class CheckoutComponent implements OnInit {
       ( cart: Order ) => {
         this.cart = cart;
         this.loading = false;
+      }
+    );
+  }
+  cancelOrder(): void {
+    this._ordersService.deleteCart().subscribe(
+      () => {
+        this._router.navigate(['/home']);
       }
     );
   }
@@ -191,7 +206,14 @@ export class CheckoutComponent implements OnInit {
         {
           amount: this.cart.total * 100,
           description: 'Sushin\' Gada',
-          phone: this.form.get('phone').value,
+          address: {
+            street: this.form.get('street').value,
+            number: this.form.get('number').value,
+            interiorNumber: this.form.get('interiorNumber').value,
+            neighborhood: this.form.get('neighborhood').value,
+            zipCode: this.form.get('zipCode').value,
+            phone: this.form.get('phone').value
+          },
           card: {
             expMonth: EXPIRATION[0],
             expYear: EXPIRATION[1],
@@ -203,6 +225,7 @@ export class CheckoutComponent implements OnInit {
       response => {
         console.log( response );
         this.processing = false;
+        this._router.navigate(['/success']);
       },
       () => {
         this.error = true;
@@ -219,9 +242,17 @@ export class CheckoutComponent implements OnInit {
     return EXPIRATION;
   }
   getPromoCode( code: string ): void {
+    this.loadingPromo = true;
     this._ordersService.getPromoCode( code ).subscribe(
       response => {
-        this.discount = response['discount'];
+        this.discount = response['percentage'];
+        this.idDiscount = response['id_discount'];
+        this.invalidPromo = false;
+        this.loadingPromo = false;
+      },
+      () => {
+        this.loadingPromo = false;
+        this.invalidPromo = true;
       }
     );
   }

@@ -15,6 +15,9 @@ export class AccountsService {
   public getAccount(): Observable<Object> {
     return this._httpClient.get( API.ENDPOINT + '/account', API.OPTIONS );
   }
+  getBillingAddress(): Observable<Object> {
+    return this._httpClient.get( API.ENDPOINT + '/account/get-billing-address', API.OPTIONS );
+  }
   public login( body ): Observable<Object> {
     return this._httpClient.post( API.ENDPOINT + '/account/login', body, API.OPTIONS );
   }

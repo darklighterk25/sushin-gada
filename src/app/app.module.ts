@@ -28,6 +28,7 @@ import { PointOfSaleItemComponent } from './components/point-of-sale/pos-item/po
 import { PrivacyComponent } from './components/shared/footer/privacy/privacy.component';
 import { LocationsComponent } from './components/locations/locations.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { SuccessComponent } from './components/checkout/success/success.component';
 import { TermsComponent } from './components/shared/footer/terms/terms.component';
 
 // Pipes
@@ -61,6 +62,7 @@ import { OrdersService } from './services/orders/orders.service';
     PointOfSaleComponent,
     PointOfSaleItemComponent,
     PrivacyComponent,
+    SuccessComponent,
     LocationsComponent,
     SignUpComponent,
     TermsComponent,
