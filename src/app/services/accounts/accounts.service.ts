@@ -12,6 +12,9 @@ export class AccountsService {
 
   constructor( private _httpClient: HttpClient ) {
   }
+  public delete(): Observable<Object> {
+    return this._httpClient.put( API.ENDPOINT + '/account/delete', {  }, API.OPTIONS );
+  }
   public getAccount(): Observable<Object> {
     return this._httpClient.get( API.ENDPOINT + '/account', API.OPTIONS );
   }
@@ -32,5 +35,8 @@ export class AccountsService {
   }
   public signup( body: Account ): Observable<Object> {
     return this._httpClient.put( API.ENDPOINT + '/account/signup', body, API.OPTIONS );
+  }
+  public update( body: Object ): Observable<Object> {
+    return this._httpClient.put( API.ENDPOINT + '/account/update', body, API.OPTIONS );
   }
 }

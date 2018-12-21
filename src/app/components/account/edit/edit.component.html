@@ -2,84 +2,52 @@
 <div class="card animated fadeIn" *ngIf="!loading">
   <div class="card-body">
 
-    <h4 class="mb-3">Información básica</h4>
-    <form>
+    <form [formGroup]="form" (ngSubmit)="update()">
 
       <div class="row">
-        <div class="col-6 mb-3">
-          <label for="email">Correo electrónico</label>
-          <input type="email" class="form-control" id="email" [placeholder]="account.email">
-          <div class="invalid-feedback">
-            Correo electrónico inválido.
+        <div class="form-group col-6 mb-3">
+          <label class="col-form-label">Correo electrónico</label>
+          <input type="email" class="form-control" maxlength="45" formControlName="email">
+          <div *ngIf="form.controls['email'].errors?.required
+                        &&( form.controls['email'].dirty || form.controls['email'].touched )"
+               class="invalid-feedback d-block">
+            Este campo es requerido.
           </div>
-        </div>
-        <div class="col-6 mb-3">
-          <label for="email">Contraseña actual</label>
-          <input type="password" class="form-control" id="password">
-          <div class="invalid-feedback">
-            Contraseña inválida.
+          <div *ngIf="form.controls['email'].errors?.pattern
+                        &&( form.controls['email'].dirty || form.controls['email'].touched )"
+               class="invalid-feedback d-block">
+            El correo es inválido.
           </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-6 mb-3">
-          <label for="email">Nueva contraseña</label>
-          <input type="password" class="form-control">
-          <div class="invalid-feedback">
-            Verificar contraseña.
+        <div class="form-group col-6 mb-3">
+          <label class="col-form-label">Nueva contraseña</label>
+          <input type="password" class="form-control" maxlength="20" formControlName="password">
+          <div *ngIf="form.controls['password'].errors?.required
+                        &&( form.controls['password'].dirty || form.controls['password'].touched )"
+               class="invalid-feedback d-block">
+            Este campo es requerido.
+          </div>
+          <div *ngIf="form.controls['password'].errors?.minlength
+                        &&( form.controls['password'].dirty || form.controls['password'].touched )"
+               class="invalid-feedback d-block">
+            La contraseña es demasiado corta.
           </div>
         </div>
-        <div class="col-6 mb-3">
-          <label for="email">Verificar nueva contraseña</label>
-          <input type="password" class="form-control">
-          <div class="invalid-feedback">
-            Verificar contraseña.
+        <div class="form-group col-6 mb-3">
+          <label class="col-form-label">Verificar contraseña</label>
+          <input type="password" class="form-control" maxlength="20" formControlName="passwordVerification">
+          <div *ngIf="form.controls['passwordVerification'].errors?.required
+                        &&( form.controls['password'].dirty || form.controls['password'].touched )"
+               class="invalid-feedback d-block">
+            Por favor verifique la contraseña.
           </div>
-        </div>
-      </div>
-
-      <hr class="mb-4">
-
-      <h4 class="mb-3">Dirección</h4>
-
-      <div class="row">
-        <div class="col-8 mb-3">
-          <label for="address">Calle</label>
-          <input type="text" class="form-control" id="street" required="" [placeholder]="account.address.street">
-          <div class="invalid-feedback">
-            Calle inválida.
-          </div>
-        </div>
-        <div class="col-2 mb-3">
-          <label for="address">Número</label>
-          <input type="text" class="form-control" id="streetNumber" required="" [placeholder]="account.address.number">
-          <div class="invalid-feedback">
-            Número inválido.
-          </div>
-        </div>
-        <div class="col-2 mb-3">
-          <label for="address">Interior</label>
-          <input type="text" class="form-control" id="interiorNumber" required="" [placeholder]="account.address.interiorNumber">
-          <div class="invalid-feedback">
-            Interior inválido.
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-9 mb-3">
-          <label for="address">Colonia</label>
-          <input type="text" class="form-control" id="address" required="" [placeholder]="account.address.neighborhood">
-          <div class="invalid-feedback">
-            Colonia inválida.
-          </div>
-        </div>
-        <div class="col-3 mb-4">
-          <label for="address">Código Postal</label>
-          <input type="text" class="form-control" id="postal" required=""  [placeholder]="account.address.zipCode">
-          <div class="invalid-feedback">
-            Número inválido.
+          <div *ngIf="form.controls['passwordVerification'].errors?.notEqual
+                        &&( form.controls['password'].dirty || form.controls['password'].touched )"
+               class="invalid-feedback d-block">
+            Los campos no coinciden.
           </div>
         </div>
       </div>
@@ -91,7 +59,7 @@
           <button class="btn btn-outline-primary btn-lg btn-block" type="submit">Actualizar información</button>
         </div>
         <div class="col-6">
-          <button class="btn btn-danger btn-lg btn-block" type="submit">Eliminar cuenta</button>
+          <button class="btn btn-danger btn-lg btn-block" type="submit" (click)="delete()">Eliminar cuenta</button>
         </div>
       </div>
     </form>
