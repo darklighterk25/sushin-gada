@@ -145,9 +145,9 @@ export class CheckoutComponent implements OnInit {
         this.address = response['address'];
         this.form.get('street').setValue(response['street']);
         this.form.get('number').setValue(response['number']);
-        this.form.get('interiorNumber').setValue(response['interiorNumber']);
+        this.form.get('interiorNumber').setValue(response['interior_number']);
         this.form.get('neighborhood').setValue(response['neighborhood']);
-        this.form.get('zipCode').setValue(response['zipCode']);
+        this.form.get('zipCode').setValue(response['zip_code']);
         this.form.get('phone').setValue(response['phone']);
       }
     );
@@ -205,6 +205,7 @@ export class CheckoutComponent implements OnInit {
     this._ordersService.purchase(
         {
           amount: this.cart.total * 100,
+          idDiscount: this.idDiscount,
           description: 'Sushin\' Gada',
           address: {
             street: this.form.get('street').value,
@@ -222,8 +223,7 @@ export class CheckoutComponent implements OnInit {
           }
         }
       ).subscribe(
-      response => {
-        console.log( response );
+      () => {
         this.processing = false;
         this._router.navigate(['/success']);
       },

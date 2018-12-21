@@ -8,53 +8,83 @@
     <!-- Menú. -->
     <div class="col-9">
       <div class="row card-columns">
-        <app-pos-item class="col-3 animated fadeIn" [item]="item" *ngFor="let item of menu"></app-pos-item>
+        <app-pos-item class="col-3 animated fadeIn" (itemSelected)="addItem( $event )" [item]="item" [index]="i"
+                      *ngFor="let item of menu; let i = index"></app-pos-item>
       </div>
     </div>
     <!-- Lista de productos. -->
-    <div class="col-3">
-      <div class="card">
+    <div *ngIf="!processing" class="col-3">
+      <div class="card my-2">
         <div class="card-body">
           <h3 class="card-title text-center">Orden</h3>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            Lista de productos...
+          <li class="list-group-item animated slideInUp" *ngFor="let item of order.items">
+            <span class="badge badge-secondary badge-pill animated fadeIn">{{ item.quantity }}</span>
+            {{ item.name }}
           </li>
         </ul>
         <div class="card-body">
           <div class="row">
             <div class="col-6"><b>Subtotal:</b></div>
-            <div class="col-6 text-right">0</div>
+            <div class="col-6 text-right">{{ order.total | currency: 'MXN' }}</div>
           </div>
           <div class="row">
             <div class="col-6"><b>Impuestos:</b></div>
-            <div class="col-6 text-right">0</div>
+            <div class="col-6 text-right">{{ order.taxes | percent }}</div>
           </div>
           <div class="row">
             <div class="col-6"><b>Descuento:</b></div>
-            <div class="col-6 text-right">0</div>
+            <div class="col-6 text-right">{{ order.discount | percent }}</div>
           </div>
           <div class="row">
             <div class="col-6"><b>Total:</b></div>
-            <div class="col-6 text-right">0</div>
+            <div class="col-6 text-right">
+              {{ order.total + (order.total * order.taxes) - (order.total * order.discount) | currency: 'MXN' }}
+            </div>
           </div>
         </div>
         <div class="card-body ">
           <div class="row">
             <span class="col-6">
-              <button type="button" class="text-center btn btn-outline-danger btn-block">
-                Cancelar
+              <button type="button" class="text-center btn btn-outline-danger btn-block" (click)="resetOrder()">
+                Cancelar <fa-icon [icon]="fa_trash"></fa-icon>
               </button>
             </span>
             <span class="col-6">
-              <button type="button" class="text-center btn btn-outline-success btn-block">
-                Pagar
+              <button (click)="purchase()" type="button" class="text-center btn btn-outline-success btn-block">
+                Pagar <fa-icon [icon]="fa_money_bill"></fa-icon>
               </button>
             </span>
           </div>
         </div>
       </div>
+      <div class="card my-2">
+        <form *ngIf="!loadingPromo && order.discount == 0" [formGroup]="promoForm"
+              (ngSubmit)="getPromoCode( promoForm.get('code').value )" class="card p-2">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Código promocional" maxlength="6" formControlName="code">
+            <div class="input-group-append">
+              <button [disabled]="this.disablePromoBtn" type="submit" class="btn btn-outline-primary">Validar</button>
+            </div>
+          </div>
+        </form>
+
+        <mat-progress-bar *ngIf="loadingPromo" class="my-5" mode="indeterminate"></mat-progress-bar>
+
+        <div *ngIf="!loadingPromo && order.discount != 0" class="alert alert-success">
+          Código promocional aplicado
+        </div>
+      </div>
+      <div *ngIf="!loadingPromo && invalidPromo" class="alert alert-danger my-1">
+        Código promocional inválido
+      </div>
+    </div>
+    <!-- Procesando compra -->
+    <mat-spinner *ngIf="processing"></mat-spinner>
+    <!-- Error -->
+    <div *ngIf="error" class="alert alert-danger" role="alert">
+      <strong>It's death Jim!</strong> Parece que se ha caído el sistema.
     </div>
   </div>
 </div>

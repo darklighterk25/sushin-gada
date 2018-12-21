@@ -5,10 +5,11 @@
     </div>
     <div class=" row ml-1 mr-1 text-muted">({{ item.price | currency }})</div>
     <hr class="mb-4 ml-1 mr-1">
-    <div class="row mb-3">
-      <button type="button" class="btn btn-outline-primary btn-block ml-3 mr-3">
-        Agregar a la orden
+    <div *ngIf="!loading" class="row mb-3 mx-5">
+      <button type="button" (click)="addItem()" class="btn btn-outline-primary btn-block ml-3 mr-3">
+        <fa-icon [icon]="plus"></fa-icon>
       </button>
     </div>
+    <mat-spinner *ngIf="loading"></mat-spinner>
   </div>
 </div>

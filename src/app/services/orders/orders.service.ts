@@ -28,4 +28,7 @@ export class OrdersService {
   purchase( body: Object ): Observable<Object> {
     return this._httpClient.put( API.ENDPOINT + '/account/orders/purchase', body, API.OPTIONS );
   }
+  purchaseInRestaurant( body: Object ): Observable<Object> {
+    return this._httpClient.put( API.ENDPOINT + '/account/orders/purchase-in-branch', body, API.OPTIONS );
+  }
 }
