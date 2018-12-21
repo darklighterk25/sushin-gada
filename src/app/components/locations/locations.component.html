@@ -10,7 +10,7 @@
     </div>
     <!-- El mapa se inicializa por defecto sobre la ciudad de Aguascalientes. -->
     <agm-map class="col-9" [latitude]="21.9000" [longitude]="-102.2917" [zoom]="13">
-      <div *ngFor="let location of locations">
+      <div *ngFor="let location of locations; let i = index">
         <agm-marker [latitude]="location.coordinates.latitude"
                     [longitude]="location.coordinates.longitude">
           <agm-info-window>
@@ -21,11 +21,11 @@
             {{ location.address.neighborhood }} {{ location.address.zipCode }}<br>
             Teléfono: {{ location.address.phone | phone }}
             <hr>
-            <div class="alert alert-success">
-              Sucursal abierta
+            <div *ngIf="location.opensToday" class="alert alert-success">
+              Abre hoy :D
             </div>
-            <div class="alert alert-danger">
-              Sucursal cerrada
+            <div *ngIf="!location.opensToday" class="alert alert-danger">
+              Cierra hoy :(
             </div>
           </agm-info-window>
         </agm-marker>

@@ -8,5 +8,6 @@ export interface Location {
     latitude: string;
     longitude: string;
   };
+  opensToday?: boolean;
   schedule: Schedule[];
 }
