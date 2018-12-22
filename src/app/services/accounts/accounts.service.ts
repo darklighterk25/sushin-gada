@@ -37,6 +37,6 @@ export class AccountsService {
     return this._httpClient.put( API.ENDPOINT + '/account/signup', body, API.OPTIONS );
   }
   public update( body: Object ): Observable<Object> {
-    return this._httpClient.put( API.ENDPOINT + '/account/update', body, API.OPTIONS );
+    return this._httpClient.put( API.ENDPOINT + '/account/edit', body, API.OPTIONS );
   }
 }

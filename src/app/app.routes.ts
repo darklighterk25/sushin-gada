@@ -7,6 +7,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { HomeComponent } from './components/home/home.component';
 import { LocationsComponent } from './components/locations/locations.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { ReportsComponent } from './components/reports/reports.component';
 import { PointOfSaleComponent } from './components/point-of-sale/point-of-sale.component';
 import { PrivacyComponent } from './components/shared/footer/privacy/privacy.component';
 import { SuccessComponent } from './components/checkout/success/success.component';
@@ -23,6 +24,7 @@ const APP_ROUTES: Routes = [
   { path: 'menu', component: MenuComponent },
   { path: 'privacy', component: PrivacyComponent },
   { path: 'point-of-sale', component: PointOfSaleComponent },
+  { path: 'reports', component: ReportsComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'success', component: SuccessComponent },
   { path: 'terms', component: TermsComponent },

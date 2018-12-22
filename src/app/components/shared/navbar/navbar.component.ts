@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { faMoneyBill, faShoppingCart, faStore, faSignOutAlt, faUserAlt, faUtensils } from '@fortawesome/free-solid-svg-icons';
+import { faChartBar, faMoneyBill, faShoppingCart, faStore, faSignOutAlt, faUserAlt, faUtensils } from '@fortawesome/free-solid-svg-icons';
 import { AccountsService } from '../../../services/accounts/accounts.service';
 import { MatSnackBar } from '@angular/material';
 import { MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-import { Order } from '../../../interfaces/order';
-import { OrdersService } from '../../../services/orders/orders.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +12,7 @@ import { OrdersService } from '../../../services/orders/orders.service';
 export class NavbarComponent implements OnInit {
 
   // Íconos
+  chart_bar = faChartBar
   money_bill = faMoneyBill;
   shopping_cart = faShoppingCart;
   sign_out_alt = faSignOutAlt;
@@ -31,7 +30,6 @@ export class NavbarComponent implements OnInit {
   userID: number;
 
   constructor( private _accountsService: AccountsService,
-               private _ordersService: OrdersService,
                public snackBar: MatSnackBar ) {
   }
 

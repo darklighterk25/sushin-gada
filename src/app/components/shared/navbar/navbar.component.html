@@ -24,6 +24,11 @@
                   Punto de venta&nbsp;<fa-icon [icon]="money_bill"></fa-icon>
                 </a>
             </li>
+            <li class="nav-item" routerLinkActive="active" *ngIf="isEmployee">
+                <a class="nav-link animated fadeIn" [routerLink]="['/reports']">
+                  Reportes&nbsp;<fa-icon [icon]="chart_bar"></fa-icon>
+                </a>
+            </li>
         </ul>
 
         <!-- Sesión iniciada (Como cliente) -->

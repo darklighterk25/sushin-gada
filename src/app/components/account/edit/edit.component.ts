@@ -66,8 +66,8 @@ export class EditComponent implements OnInit {
   update(): void {
     this.loading = true;
     this._accountsService.update({
-      email: this.form.get('email').value(),
-      password: this.form.get('password').value()
+      email: this.form.get('email').value,
+      password: this.form.get('password').value
     }).subscribe(
       () => {
         this.loading = false;

@@ -26,6 +26,7 @@ import { OrdersComponent } from './components/account/orders/orders.component';
 import { PointOfSaleComponent } from './components/point-of-sale/point-of-sale.component';
 import { PointOfSaleItemComponent } from './components/point-of-sale/pos-item/pos-item.component';
 import { PrivacyComponent } from './components/shared/footer/privacy/privacy.component';
+import { ReportsComponent } from './components/reports/reports.component';
 import { LocationsComponent } from './components/locations/locations.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SuccessComponent } from './components/checkout/success/success.component';
@@ -42,6 +43,7 @@ import { AccountsService } from './services/accounts/accounts.service';
 import { LocationsService } from './services/locations/locations.service';
 import { MenuService } from './services/menu/menu.service';
 import { OrdersService } from './services/orders/orders.service';
+import { ReportsService } from './services/reports/reports.service';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,7 @@ import { OrdersService } from './services/orders/orders.service';
     PointOfSaleComponent,
     PointOfSaleItemComponent,
     PrivacyComponent,
+    ReportsComponent,
     SuccessComponent,
     LocationsComponent,
     SignUpComponent,
@@ -85,7 +88,8 @@ import { OrdersService } from './services/orders/orders.service';
     AccountsService,
     LocationsService,
     MenuService,
-    OrdersService
+    OrdersService,
+    ReportsService
   ],
   bootstrap: [
     AppComponent
